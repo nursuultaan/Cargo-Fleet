@@ -52,7 +52,8 @@ function Register() {
           className={clsx(classes.leftSection, 'flex flex-col w-full max-w-sm items-center justify-center shadow-0')}
           square
         >
-          <CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+          {/* <CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320"> */}
+          <CardContent className="flex flex-col items-center justify-center w-full max-w-320">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }}>
               <div className="flex items-center justif-center mb-32">
                 <img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />

@@ -1,22 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextField from '@material-ui/core/TextField';
+import _ from '@lodash';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { submitLogin } from 'app/auth/store/loginSlice';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitLogin } from 'app/auth/store/loginSlice';
 import * as yup from 'yup';
-import _ from '@lodash';
 
 /**
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  email: yup.string().email('You must enter a valid email').required('You must enter a email'),
+  email: yup.string().email('You must enter a valid email').required('You must enter an email address'),
   password: yup
     .string()
     .required('Please enter your password.')
@@ -42,8 +41,8 @@ function JWTLoginTab(props) {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    setValue('email', '', { shouldDirty: true, shouldValidate: true });
-    setValue('password', '', { shouldDirty: true, shouldValidate: true });
+    setValue('email', '', { shouldDirty: true });
+    setValue('password', '', { shouldDirty: true });
   }, [reset, setValue, trigger]);
 
   useEffect(() => {
@@ -129,7 +128,7 @@ function JWTLoginTab(props) {
           Login
         </Button>
       </form>
-
+      {/* 
       <table className="w-full mt-32 text-center">
         <thead className="mb-4">
           <tr>
@@ -178,7 +177,7 @@ function JWTLoginTab(props) {
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

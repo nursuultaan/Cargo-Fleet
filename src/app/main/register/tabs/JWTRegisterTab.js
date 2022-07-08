@@ -1,21 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextField from '@material-ui/core/TextField';
+import _ from '@lodash';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import { submitRegister } from 'app/auth/store/registerSlice';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitRegister } from 'app/auth/store/registerSlice';
 import * as yup from 'yup';
-import _ from '@lodash';
 
 /**
  * Form Validation Schema
  */
 const schema = yup.object().shape({
   displayName: yup.string().required('You must enter display name'),
-  email: yup.string().email('You must enter a valid email').required('You must enter a email'),
+  email: yup.string().email('You must enter a valid email').required('You must enter an email address'),
   password: yup
     .string()
     .required('Please enter your password.')
