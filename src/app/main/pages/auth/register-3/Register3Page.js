@@ -3,6 +3,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { motion } from 'framer-motion';
 import { Controller, useForm } from 'react-hook-form';
 
+import _ from '@lodash';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,7 +17,6 @@ import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import _ from '@lodash';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
  */
 const schema = yup.object().shape({
   name: yup.string().required('You must enter your name'),
-  email: yup.string().email('You must enter a valid email').required('You must enter a email'),
+  email: yup.string().email('You must enter a valid email').required('You must enter an email address'),
   password: yup
     .string()
     .required('Please enter your password.')
@@ -80,7 +80,8 @@ function Register3Page() {
           className={clsx(classes.leftSection, 'flex flex-col w-full max-w-sm items-center justify-center shadow-0')}
           square
         >
-          <CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+          {/* <CardContent className="flex flex-col items-center justify-center w-full py-96  max-w-320"> */}
+          <CardContent className="flex flex-col items-center justify-center w-full  max-w-320">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }}>
               <div className="flex items-center mb-48">
                 <img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
