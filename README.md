@@ -1,5 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install proper node version
+
+Make sure you have `node version 12 (>=12.13.0)` installed locally before you start running scripts below.
+Otherwise, you'll end up seeing the error below in your terminal:
+
+```js
+error @tailwindcss/postcss7-compat@2.1.2: The engine "node" is incompatible with this module. Expected version ">=12.13.0". Got "10.24.1"
+error Found incompatible module.
+```
+
+For Mac users, please check here: https://formulae.brew.sh/formula/node@12
+
+### `brew install node@12`
+
+For Windows users, check the installers here: https://nodejs.org/es/blog/release/v12.13.0/
+
+## Install yarn package manager globally in your terminal
+
+### `npm install --global yarn`
+
+Please check this link for more info: https://classic.yarnpkg.com/en/docs/install#mac-stable
+
 ## Available Scripts
 
 In the project directory, you can run:

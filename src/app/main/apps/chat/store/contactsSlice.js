@@ -9,7 +9,10 @@ export const getContacts = createAsyncThunk('chatApp/contacts/getContacts', asyn
   return data;
 });
 
-const contactsAdapter = createEntityAdapter({});
+// Check out this video for createEntity in Redux: https://www.youtube.com/watch?v=dDWj1uL8raU&ab_channel=Rowadz
+const contactsAdapter = createEntityAdapter({
+  selectId: ({ _id }) => _id
+});
 
 export const { selectAll: selectContacts, selectById: selectContactById } = contactsAdapter.getSelectors(
   state => state.chatApp.contacts
