@@ -1,27 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Deploy to heroku
-
-- add “engines” into package.json file to specify node and npm version
-```
-{
-  "name": "fuse-react-app",
-  "version": "6.1.4",
-  "engines": {
-    "node": "16.x",
-    "npm": "8.x"
-  },
-  "private": true,
-  ........
-}
-```
-- add `"react/jsx-no-bind": "off"` rule to `.eslintrc` after line 65
-- under Setting tab in heroku.com pls add https://github.com/mars/create-react-app-buildpack as a buildpack
-- run `heroku stack:set heroku-20` to downgrade heroku stack to 20 because https://github.com/mars/create-react-app-buildpack webpack does - not support the latest 22
-
 ## Install proper node version
 
-Make sure you have `node version 12 (>=12.13.0)` installed locally before you start running scripts below.
+Make sure you have `node version 16.20.0` installed locally before you start running scripts below.
 Otherwise, you'll end up seeing the error below in your terminal:
 
 ```js
@@ -31,9 +12,9 @@ error Found incompatible module.
 
 For Mac users, please check here: https://formulae.brew.sh/formula/node@12
 
-### `brew install node@12`
+### `brew install node@16`
 
-For Windows users, check the installers here: https://nodejs.org/es/blog/release/v12.13.0/
+For Windows users, check the installers here: https://nodejs.org/es/blog/release/v16.20.0/
 
 ## Install yarn package manager globally in your terminal
 
