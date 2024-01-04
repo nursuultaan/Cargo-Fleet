@@ -19,12 +19,12 @@
 // import * as yup from 'yup';
 
 // // import {
-// //   removeContact,
-// //   updateContact,
-// //   addContact,
-// //   closeNewContactDialog,
-// //   closeEditContactDialog
-// // } from './store/contactsSlice';
+// //   removeVehicle,
+// //   updateVehicle,
+// //   addVehicle,
+// //   closeNewVehicleDialog,
+// //   closeEditVehicleDialog
+// // } from './store/vehiclesSlice';
 
 // const defaultValues = {
 //   id: '',
@@ -48,9 +48,9 @@
 //   name: yup.string().required('You must enter a name')
 // });
 
-// function ContactDialog(props) {
+// function VehicleDialog(props) {
 //   const dispatch = useDispatch();
-//   const contactDialog = useSelector(({ contactsApp }) => contactsApp.contacts.contactDialog);
+//   const vehicleDialog = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.vehicleDialog);
 
 //   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
 //     mode: 'onChange',
@@ -71,46 +71,46 @@
 //     /**
 //      * Dialog type: 'edit'
 //      */
-//     if (contactDialog.type === 'edit' && contactDialog.data) {
-//       reset({ ...contactDialog.data });
+//     if (vehicleDialog.type === 'edit' && vehicleDialog.data) {
+//       reset({ ...vehicleDialog.data });
 //     }
 
 //     /**
 //      * Dialog type: 'new'
 //      */
-//     if (contactDialog.type === 'new') {
+//     if (vehicleDialog.type === 'new') {
 //       reset({
 //         ...defaultValues,
-//         ...contactDialog.data,
+//         ...vehicleDialog.data,
 //         id: FuseUtils.generateGUID()
 //       });
 //     }
-//   }, [contactDialog.data, contactDialog.type, reset]);
+//   }, [vehicleDialog.data, vehicleDialog.type, reset]);
 
 //   /**
 //    * On Dialog Open
 //    */
 //   useEffect(() => {
-//     if (contactDialog.props.open) {
+//     if (vehicleDialog.props.open) {
 //       initDialog();
 //     }
-//   }, [contactDialog.props.open, initDialog]);
+//   }, [vehicleDialog.props.open, initDialog]);
 
 //   /**
 //    * Close Dialog
 //    */
 //   function closeComposeDialog() {
-//     return contactDialog.type === 'edit' ? dispatch(closeEditContactDialog()) : dispatch(closeNewContactDialog());
+//     return vehicleDialog.type === 'edit' ? dispatch(closeEditVehicleDialog()) : dispatch(closeNewVehicleDialog());
 //   }
 
 //   /**
 //    * Form Submit
 //    */
 //   function onSubmit(data) {
-//     if (contactDialog.type === 'new') {
-//       dispatch(addContact(data));
+//     if (vehicleDialog.type === 'new') {
+//       dispatch(addVehicle(data));
 //     } else {
-//       dispatch(updateContact({ ...contactDialog.data, ...data }));
+//       dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
 //     }
 //     closeComposeDialog();
 //   }
@@ -119,7 +119,7 @@
 //    * Remove Event
 //    */
 //   function handleRemove() {
-//     dispatch(removeContact(id));
+//     dispatch(removeVehicle(id));
 //     closeComposeDialog();
 //   }
 
@@ -128,7 +128,7 @@
 //       classes={{
 //         paper: 'm-24'
 //       }}
-//       {...contactDialog.props}
+//       {...vehicleDialog.props}
 //       // onClose={closeComposeDialog}
 //       fullWidth
 //       maxWidth="xs"
@@ -136,12 +136,12 @@
 //       <AppBar position="static" elevation={0}>
 //         <Toolbar className="flex w-full">
 //           <Typography variant="subtitle1" color="inherit">
-//             {contactDialog.type === 'new' ? 'New Contact' : 'Edit Contact'}
+//             {vehicleDialog.type === 'new' ? 'New Vehicle' : 'Edit Vehicle'}
 //           </Typography>
 //         </Toolbar>
 //         <div className="flex flex-col items-center justify-center pb-24">
-//           <Avatar className="w-96 h-96" alt="contact avatar" src={avatar} />
-//           {contactDialog.type === 'edit' && (
+//           <Avatar className="w-96 h-96" alt="vehicle avatar" src={avatar} />
+//           {vehicleDialog.type === 'edit' && (
 //             <Typography variant="h6" color="inherit" className="pt-8">
 //               {name}
 //             </Typography>
@@ -318,7 +318,7 @@
 //           </div>
 //         </DialogContent>
 
-//         {contactDialog.type === 'new' ? (
+//         {vehicleDialog.type === 'new' ? (
 //           <DialogActions className="justify-between p-4 pb-16">
 //             <div className="px-16">
 //               <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
@@ -343,4 +343,4 @@
 //   );
 // }
 
-// export default ContactDialog;
+// export default VehicleDialog;

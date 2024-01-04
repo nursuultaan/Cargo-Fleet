@@ -7,19 +7,19 @@
 // import MenuList from '@material-ui/core/MenuList';
 // import { useState } from 'react';
 // import { useDispatch } from 'react-redux';
-// import { setContactsUnstarred, setContactsStarred, removeContacts } from './store/contactsSlice';
+// import { setVehiclesUnstarred, setVehiclesStarred, removeVehicles } from './store/vehiclesSlice';
 
-// function ContactsMultiSelectMenu(props) {
+// function VehiclesMultiSelectMenu(props) {
 //   const dispatch = useDispatch();
-//   const { selectedContactIds } = props;
+//   const { selectedVehicleIds } = props;
 
 //   const [anchorEl, setAnchorEl] = useState(null);
 
-//   function openSelectedContactMenu(event) {
+//   function openSelectedVehicleMenu(event) {
 //     setAnchorEl(event.currentTarget);
 //   }
 
-//   function closeSelectedContactsMenu() {
+//   function closeSelectedVehiclesMenu() {
 //     setAnchorEl(null);
 //   }
 
@@ -27,18 +27,18 @@
 //     <>
 //       <IconButton
 //         className="p-0"
-//         aria-owns={anchorEl ? 'selectedContactsMenu' : null}
+//         aria-owns={anchorEl ? 'selectedVehiclesMenu' : null}
 //         aria-haspopup="true"
-//         onClick={openSelectedContactMenu}
+//         onClick={openSelectedVehicleMenu}
 //       >
 //         <Icon>more_horiz</Icon>
 //       </IconButton>
-//       <Menu id="selectedContactsMenu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeSelectedContactsMenu}>
+//       <Menu id="selectedVehiclesMenu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeSelectedVehiclesMenu}>
 //         <MenuList>
 //           <MenuItem
 //             onClick={() => {
-//               dispatch(removeContacts(selectedContactIds));
-//               closeSelectedContactsMenu();
+//               dispatch(removeVehicles(selectedVehicleIds));
+//               closeSelectedVehiclesMenu();
 //             }}
 //           >
 //             <ListItemIcon className="min-w-40">
@@ -48,8 +48,8 @@
 //           </MenuItem>
 //           <MenuItem
 //             onClick={() => {
-//               dispatch(setContactsStarred(selectedContactIds));
-//               closeSelectedContactsMenu();
+//               dispatch(setVehiclesStarred(selectedVehicleIds));
+//               closeSelectedVehiclesMenu();
 //             }}
 //           >
 //             <ListItemIcon className="min-w-40">
@@ -59,8 +59,8 @@
 //           </MenuItem>
 //           <MenuItem
 //             onClick={() => {
-//               dispatch(setContactsUnstarred(selectedContactIds));
-//               closeSelectedContactsMenu();
+//               dispatch(setVehiclesUnstarred(selectedVehicleIds));
+//               closeSelectedVehiclesMenu();
 //             }}
 //           >
 //             <ListItemIcon className="min-w-40">
@@ -74,4 +74,4 @@
 //   );
 // }
 
-// export default ContactsMultiSelectMenu;
+// export default VehiclesMultiSelectMenu;

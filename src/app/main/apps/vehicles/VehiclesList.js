@@ -1,15 +1,10 @@
 import { motion } from 'framer-motion';
 import FuseUtils from '@fuse/utils';
-import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
-import ContactsTable from './ContactsTable';
-// import { openEditContactDialog, removeContact, toggleStarredContact, selectContacts } from './store/contactsSlice';
-import { openEditContactDialog, selectContacts } from './store/contactsSlice';
+import VehiclesTable from './VehiclesTable';
+import { openEditContactDialog, selectVehicles } from './store/vehiclesSlice';
 
 const formatData = vehicles =>
   vehicles.map(vehicle => {
@@ -22,11 +17,11 @@ const formatData = vehicles =>
     };
   });
 
-function ContactsList(props) {
+function VehiclesList(props) {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-  const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
-  // const user = useSelector(({ contactsApp }) => contactsApp.user);
+  const vehicles = useSelector(selectVehicles);
+  const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
+  // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
 
   const [filteredData, setFilteredData] = useState(null);
 
@@ -36,7 +31,7 @@ function ContactsList(props) {
       //   Header: ({ selectedFlatRows }) => {
       //     const selectedRowIds = selectedFlatRows.map(row => row.original.id);
 
-      //     return selectedFlatRows.length > 0 && <ContactsMultiSelectMenu selectedContactIds={selectedRowIds} />;
+      //     return selectedFlatRows.length > 0 && <VehiclesMultiSelectMenu selectedContactIds={selectedRowIds} />;
       //   },
       //   accessor: 'avatar',
       //   Cell: ({ row }) => {
@@ -121,21 +116,21 @@ function ContactsList(props) {
       // }
     ],
     // eslint-disable-next-line
-    [dispatch, contacts]
+    [dispatch, vehicles]
   );
 
   useEffect(() => {
     function getFilteredArray(entities, _searchText) {
       if (_searchText.length === 0) {
-        return contacts;
+        return vehicles;
       }
-      return FuseUtils.filterArrayByString(contacts, _searchText);
+      return FuseUtils.filterArrayByString(vehicles, _searchText);
     }
 
-    if (contacts) {
-      setFilteredData(getFilteredArray(contacts, searchText));
+    if (vehicles) {
+      setFilteredData(getFilteredArray(vehicles, searchText));
     }
-  }, [contacts, searchText]);
+  }, [vehicles, searchText]);
 
   if (!filteredData) {
     return null;
@@ -145,7 +140,7 @@ function ContactsList(props) {
     return (
       <div className="flex flex-1 items-center justify-center h-full">
         <Typography color="textSecondary" variant="h5">
-          There are no contacts!
+          There are no vehicles!
         </Typography>
       </div>
     );
@@ -155,7 +150,7 @@ function ContactsList(props) {
 
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
-      <ContactsTable
+      <VehiclesTable
         columns={columns}
         data={formattedData}
         // onRowClick={(ev, row) => {
@@ -168,4 +163,4 @@ function ContactsList(props) {
   );
 }
 
-export default ContactsList;
+export default VehiclesList;

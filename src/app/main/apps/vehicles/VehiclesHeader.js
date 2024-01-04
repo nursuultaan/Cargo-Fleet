@@ -8,11 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { setContactsSearchText } from './store/contactsSlice';
+import { setVehiclesSearchText } from './store/vehiclesSlice';
 
-function ContactsHeader(props) {
+function VehiclesHeader(props) {
   const dispatch = useDispatch();
-  const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
+  const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   const mainTheme = useSelector(selectMainTheme);
 
   return (
@@ -45,7 +45,7 @@ function ContactsHeader(props) {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Contacts
+            Vehicles
           </Typography>
         </div>
       </div>
@@ -69,7 +69,7 @@ function ContactsHeader(props) {
               inputProps={{
                 'aria-label': 'Search'
               }}
-              onChange={ev => dispatch(setContactsSearchText(ev))}
+              onChange={ev => dispatch(setVehiclesSearchText(ev))}
             />
           </Paper>
         </ThemeProvider>
@@ -78,4 +78,4 @@ function ContactsHeader(props) {
   );
 }
 
-export default ContactsHeader;
+export default VehiclesHeader;

@@ -4,15 +4,15 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
-// import ContactDialog from './ContactDialog';
-import ContactsHeader from './ContactsHeader';
-import ContactsList from './ContactsList';
-// import ContactsSidebarContent from './ContactsSidebarContent';
+// import VehicleDialog from './VehicleDialog';
+import VehiclesHeader from './VehiclesHeader';
+import VehiclesList from './VehiclesList';
+// import VehiclesSidebarContent from './VehiclesSidebarContent';
 import reducer from './store';
-import { getVehicles } from './store/contactsSlice';
+import { getVehicles } from './store/vehiclesSlice';
 // import { getUserData } from './store/userSlice';
 
-function ContactsApp(props) {
+function VehiclesApp(props) {
   const dispatch = useDispatch();
 
   const pageLayout = useRef(null);
@@ -33,16 +33,16 @@ function ContactsApp(props) {
           header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
           wrapper: 'min-h-0'
         }}
-        header={<ContactsHeader pageLayout={pageLayout} />}
-        content={<ContactsList />}
-        // leftSidebarContent={<ContactsSidebarContent />}
+        header={<VehiclesHeader pageLayout={pageLayout} />}
+        content={<VehiclesList />}
+        // leftSidebarContent={<VehiclesSidebarContent />}
         sidebarInner
         ref={pageLayout}
         innerScroll
       />
-      {/* <ContactDialog /> */}
+      {/* <VehicleDialog /> */}
     </>
   );
 }
 
-export default withReducer('contactsApp', reducer)(ContactsApp);
+export default withReducer('vehiclesApp', reducer)(VehiclesApp);

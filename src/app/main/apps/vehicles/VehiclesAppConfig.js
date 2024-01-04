@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const ContactsAppConfig = {
+const VehiclesAppConfig = {
   settings: {
     layout: {
       config: {}
@@ -10,7 +10,7 @@ const ContactsAppConfig = {
   routes: [
     {
       path: '/apps/vehicles/:id',
-      component: lazy(() => import('./ContactsApp'))
+      component: lazy(() => import('./VehiclesApp'))
     },
     {
       path: '/apps/vehicles',
@@ -19,4 +19,4 @@ const ContactsAppConfig = {
   ]
 };
 
-export default ContactsAppConfig;
+export default VehiclesAppConfig;

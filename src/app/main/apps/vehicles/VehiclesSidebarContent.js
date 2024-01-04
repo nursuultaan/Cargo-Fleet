@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { openNewContactDialog } from './store/contactsSlice';
+import { openNewVehicleDialog } from './store/vehiclesSlice';
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -40,8 +40,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ContactsSidebarContent(props) {
-  const user = useSelector(({ contactsApp }) => contactsApp.user);
+function VehiclesSidebarContent(props) {
+  const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
 
   const dispatch = useDispatch();
 
@@ -67,9 +67,9 @@ function ContactsSidebarContent(props) {
             variant="contained"
             color="secondary"
             className="w-full"
-            onClick={ev => dispatch(openNewContactDialog())}
+            onClick={ev => dispatch(openNewVehicleDialog())}
           >
-            New Contact
+            New Vehicle
           </Button>
         </div>
 
@@ -77,38 +77,38 @@ function ContactsSidebarContent(props) {
           <ListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contacts/all"
+            to="/apps/vehicles/all"
             activeClassName="active"
             className={classes.listItem}
           >
             <Icon className="list-item-icon text-16" color="action">
               people
             </Icon>
-            <ListItemText className="truncate" primary="All contacts" disableTypography />
+            <ListItemText className="truncate" primary="All vehicles" disableTypography />
           </ListItem>
           <ListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contacts/frequent"
+            to="/apps/vehicles/frequent"
             activeClassName="active"
             className={classes.listItem}
           >
             <Icon className="list-item-icon text-16" color="action">
               restore
             </Icon>
-            <ListItemText className="truncate" primary="Frequently contacted" disableTypography />
+            <ListItemText className="truncate" primary="Frequently vehicleed" disableTypography />
           </ListItem>
           <ListItem
             button
             component={NavLinkAdapter}
-            to="/apps/contacts/starred"
+            to="/apps/vehicles/starred"
             activeClassName="active"
             className={classes.listItem}
           >
             <Icon className="list-item-icon text-16" color="action">
               star
             </Icon>
-            <ListItemText className="truncate" primary="Starred contacts" disableTypography />
+            <ListItemText className="truncate" primary="Starred vehicles" disableTypography />
           </ListItem>
         </List>
       </Paper>
@@ -116,4 +116,4 @@ function ContactsSidebarContent(props) {
   );
 }
 
-export default ContactsSidebarContent;
+export default VehiclesSidebarContent;

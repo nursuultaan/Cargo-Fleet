@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import contacts from './contactsSlice';
+import vehicles from './vehiclesSlice';
 import user from './userSlice';
 
 const reducer = combineReducers({
-  contacts,
+  vehicles,
   user
 });
 
