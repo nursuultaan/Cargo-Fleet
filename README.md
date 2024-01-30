@@ -22,9 +22,11 @@ For Windows users, check the installers here: https://nodejs.org/es/blog/release
 
 Please check this link for more info: https://classic.yarnpkg.com/en/docs/install#mac-stable
 
-## Available Scripts
+## Install all dependencies:
 
-In the project directory, you can run:
+### `yarn install`
+
+## Start the server:
 
 ### `yarn start`
 
