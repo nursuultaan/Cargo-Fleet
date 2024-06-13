@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
-import { openEditContactDialog, selectVehicles } from './store/vehiclesSlice';
+import { selectVehicles } from './store/vehiclesSlice';
 
 const formatData = vehicles =>
   vehicles.map(vehicle => {
