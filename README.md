@@ -71,4 +71,8 @@ Team members:
 Zarina
 Lavinia
 Nursultan 
-Happy Coding!w
+Happy Coding!
+Amantur
+Happy Coding!
+Aian
+
