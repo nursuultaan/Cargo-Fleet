@@ -1,0 +1,32 @@
+name: Format Check
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.20'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Prettier to check for formatting
+        run: yarn pretty
+
+      - name: Run Prettier to fix formatting (optional)
+        if: ${{ always() }}
+        run: |
+          yarn format
+          git config --global user.email "said.kaldybaev@gmail.com"
+          git config --global user.name "Said Kaldybaev"
+          git add .
+          git commit -m "Format code with Prettier" || echo "No changes to commit"
+          git push origin HEAD:${{ github.head_ref }}
