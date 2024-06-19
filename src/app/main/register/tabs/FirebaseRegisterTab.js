@@ -19,7 +19,10 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Please enter your password.')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
+    .min(10, 'Password is too short - should be 10 chars minimum.')
+    .matches(/[A-Z]/, 'Password must contain at least one capital letter.')
+    .matches(/[0-9]/,'Password must contain at least one digit.')
+    .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special symbol'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
@@ -33,6 +36,7 @@ const defaultValues = {
 function FirebaseRegisterTab(props) {
   const dispatch = useDispatch();
   const authRegister = useSelector(({ auth }) => auth.register);
+  const [isVisiblePassword,setIsVisiblePassword]= useState(false);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
@@ -55,6 +59,11 @@ function FirebaseRegisterTab(props) {
 
   function onSubmit(model) {
     dispatch(registerWithFirebase(model));
+  }
+
+  function handleShowPassword(){
+    setIsVisiblePassword((prev) => !prev);
+    console.log(isVisiblePassword);
   }
 
   return (
@@ -93,7 +102,7 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type="text"
+              type={`${isVisiblePassword ? "text" :"password"}`}
               error={!!errors.email}
               helperText={errors?.email?.message}
               label="Email"
@@ -119,15 +128,15 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type="password"
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Password"
               error={!!errors.password}
               helperText={errors?.password?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20" color="action">
-                      vpn_key
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
+                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
                 )
@@ -145,15 +154,15 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type="password"
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Confirm Password"
               error={!!errors.passwordConfirm}
               helperText={errors?.passwordConfirm?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20" color="action">
-                      vpn_key
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
+                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
                 )
