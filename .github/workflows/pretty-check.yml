@@ -25,8 +25,8 @@ jobs:
         if: ${{ always() }}
         run: |
           yarn pretty
-          git config --global user.email "said.kaldybaev@gmail.com"
-          git config --global user.name "Said Kaldybaev"
+          git config --global user.email "fragus.kg@gmail.com"
+          git config --global user.name "Seytech Admin"
           git add .
           git commit -m "Format code with Prettier" || echo "No changes to commit"
           git push origin HEAD:${{ github.head_ref }}
