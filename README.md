@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Install proper node version
-
+Carina Ihtiyorova
 Make sure you have `node version 16.20.0` installed locally before you start running scripts below.
 Otherwise, you'll end up seeing the error below in your terminal:
 
