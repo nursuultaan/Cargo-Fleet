@@ -5,7 +5,7 @@ import Icon from '@material-ui/core/Icon';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import { submitRegister } from 'app/auth/store/registerSlice';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
@@ -19,7 +19,10 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Please enter your password.')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
+    .min(10, 'Password is too short - should be 10 chars minimum.')
+    .matches(/[A-Z]/, 'Password must contain at least one capital letter.')
+    .matches(/[0-9]/,'Password must contain at least one digit.')
+    .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special symbol'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
@@ -33,6 +36,7 @@ const defaultValues = {
 function JWTRegisterTab(props) {
   const dispatch = useDispatch();
   const authRegister = useSelector(({ auth }) => auth.register);
+  const [isVisiblePassword,setIsVisiblePassword]= useState(false);
 
   const { control, formState, handleSubmit, reset, setError } = useForm({
     mode: 'onChange',
@@ -53,6 +57,10 @@ function JWTRegisterTab(props) {
 
   function onSubmit(model) {
     dispatch(submitRegister(model));
+  }
+
+  function handleShowPassword(){
+    setIsVisiblePassword((prev) => !prev);
   }
 
   return (
@@ -117,15 +125,15 @@ function JWTRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type="password"
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Password"
               error={!!errors.password}
               helperText={errors?.password?.message}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end">
-                    <Icon className="text-20" color="action">
-                      vpn_key
+                  <InputAdornment position="end" >
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
+                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
                 )
@@ -143,15 +151,15 @@ function JWTRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type="password"
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Confirm Password"
               error={!!errors.passwordConfirm}
               helperText={errors?.passwordConfirm?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20" color="action">
-                      vpn_key
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword} >
+                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
                 )
