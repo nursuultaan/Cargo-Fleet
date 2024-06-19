@@ -61,9 +61,8 @@ function FirebaseRegisterTab(props) {
     dispatch(registerWithFirebase(model));
   }
 
-  function handleShowPassword() {
+  function handleShowPassword(){
     setIsVisiblePassword(prev => !prev);
-    console.log(isVisiblePassword);
   }
 
   return (
@@ -102,7 +101,7 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type={`${isVisiblePassword ? "text" :"password"}`}
               error={!!errors.email}
               helperText={errors?.email?.message}
               label="Email"
@@ -128,14 +127,14 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Password"
               error={!!errors.password}
               helperText={errors?.password?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
                       {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
@@ -154,14 +153,14 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type={`${isVisiblePassword ? "text" :"password"}`}
               label="Confirm Password"
               error={!!errors.passwordConfirm}
               helperText={errors?.passwordConfirm?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
+                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
                       {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
