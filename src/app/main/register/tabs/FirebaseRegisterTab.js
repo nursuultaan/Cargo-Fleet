@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     .required('Please enter your password.')
     .min(10, 'Password is too short - should be 10 chars minimum.')
     .matches(/[A-Z]/, 'Password must contain at least one capital letter.')
-    .matches(/[0-9]/,'Password must contain at least one digit.')
+    .matches(/[0-9]/, 'Password must contain at least one digit.')
     .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special symbol'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
@@ -36,7 +36,7 @@ const defaultValues = {
 function FirebaseRegisterTab(props) {
   const dispatch = useDispatch();
   const authRegister = useSelector(({ auth }) => auth.register);
-  const [isVisiblePassword,setIsVisiblePassword]= useState(false);
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
@@ -62,8 +62,7 @@ function FirebaseRegisterTab(props) {
   }
 
   function handleShowPassword(){
-    setIsVisiblePassword((prev) => !prev);
-    console.log(isVisiblePassword);
+    setIsVisiblePassword(prev => !prev);
   }
 
   return (

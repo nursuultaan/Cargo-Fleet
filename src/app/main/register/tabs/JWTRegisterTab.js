@@ -132,7 +132,7 @@ function JWTRegisterTab(props) {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" >
-                    <Icon className="text-20 cursor-pointer" color="action"  onClick={handleShowPassword}>
+                    <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
                       {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
                     </Icon>
                   </InputAdornment>
