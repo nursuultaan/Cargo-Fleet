@@ -36,7 +36,7 @@ const defaultValues = {
 function FirebaseRegisterTab(props) {
   const dispatch = useDispatch();
   const authRegister = useSelector(({ auth }) => auth.register);
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const formRef = useRef(null);
@@ -62,7 +62,7 @@ function FirebaseRegisterTab(props) {
   }
 
   function handleShowPassword() {
-    setIsVisiblePassword(prev => !prev);
+    setIsPasswordVisible(prev => !prev);
   }
 
   return (
@@ -127,7 +127,7 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type={`${isPasswordVisible ? 'text' : 'password'}`}
               label="Password"
               error={!!errors.password}
               helperText={errors?.password?.message}
@@ -135,7 +135,7 @@ function FirebaseRegisterTab(props) {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
-                      {isVisiblePassword ? 'visibility_off' : 'visibility'}
+                      {isPasswordVisible ? 'visibility_off' : 'visibility'}
                     </Icon>
                   </InputAdornment>
                 )
@@ -153,7 +153,7 @@ function FirebaseRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type={`${isPasswordVisible ? 'text' : 'password'}`}
               label="Confirm Password"
               error={!!errors.passwordConfirm}
               helperText={errors?.passwordConfirm?.message}
@@ -161,7 +161,7 @@ function FirebaseRegisterTab(props) {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
-                      {isVisiblePassword ? 'visibility_off' : 'visibility'}
+                      {isPasswordVisible ? 'visibility_off' : 'visibility'}
                     </Icon>
                   </InputAdornment>
                 )

@@ -36,7 +36,6 @@ const defaultValues = {
 function JWTRegisterTab(props) {
   const dispatch = useDispatch();
   const authRegister = useSelector(({ auth }) => auth.register);
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
   const { control, formState, handleSubmit, reset, setError } = useForm({
     mode: 'onChange',
@@ -57,10 +56,6 @@ function JWTRegisterTab(props) {
 
   function onSubmit(model) {
     dispatch(submitRegister(model));
-  }
-
-  function handleShowPassword() {
-    setIsVisiblePassword(prev => !prev);
   }
 
   return (
@@ -125,15 +120,15 @@ function JWTRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type="password"
               label="Password"
               error={!!errors.password}
               helperText={errors?.password?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
-                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
+                    <Icon className="text-20 cursor-pointer" color="action">
+                      vpn_key
                     </Icon>
                   </InputAdornment>
                 )
@@ -151,15 +146,15 @@ function JWTRegisterTab(props) {
             <TextField
               {...field}
               className="mb-16"
-              type={`${isVisiblePassword ? 'text' : 'password'}`}
+              type="password"
               label="Confirm Password"
               error={!!errors.passwordConfirm}
               helperText={errors?.passwordConfirm?.message}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Icon className="text-20 cursor-pointer" color="action" onClick={handleShowPassword}>
-                      {isVisiblePassword ? 'visibility' : 'vpn_key'}vpn_key
+                    <Icon className="text-20 cursor-pointer" color="action">
+                      vpn_key
                     </Icon>
                   </InputAdornment>
                 )
