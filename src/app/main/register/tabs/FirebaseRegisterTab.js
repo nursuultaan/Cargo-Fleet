@@ -13,7 +13,6 @@ import * as yup from 'yup';
 /**
  * Form Validation Schema
  */
-
 const schema = yup.object().shape({
   displayName: yup.string().required('You must enter display name'),
   email: yup.string().email('You must enter a valid email').required('You must enter an email address'),
@@ -22,7 +21,7 @@ const schema = yup.object().shape({
     .required('Please enter your password.')
     .min(10, 'Password is too short - should be 10 chars minimum.')
     .matches(/[A-Z]/, 'Password must contain at least one capital letter.')
-    .matches(/[0-9]/, 'Password must contain at least one digit.')
+    .matches(/[0-9]/,'Password must contain at least one digit.')
     .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special symbol'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
@@ -62,7 +61,7 @@ function FirebaseRegisterTab(props) {
     dispatch(registerWithFirebase(model));
   }
 
-  function handleShowPassword() {
+  function handleShowPassword(){
     setIsVisiblePassword(prev => !prev);
   }
 
