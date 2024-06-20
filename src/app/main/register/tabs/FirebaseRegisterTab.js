@@ -13,6 +13,7 @@ import * as yup from 'yup';
 /**
  * Form Validation Schema
  */
+
 const schema = yup.object().shape({
   displayName: yup.string().required('You must enter display name'),
   email: yup.string().email('You must enter a valid email').required('You must enter an email address'),
