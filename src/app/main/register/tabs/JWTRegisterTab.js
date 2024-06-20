@@ -182,3 +182,4 @@ function JWTRegisterTab(props) {
 }
 
 export default JWTRegisterTab;
+
