@@ -19,10 +19,10 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('Please enter your password.')
-    .min(10, 'Password is too short - should be 10 chars minimum.')
-    .matches(/[A-Z]/, 'Password must contain at least one capital letter.')
-    .matches(/[0-9]/, 'Password must contain at least one digit.')
-    .matches(/[^A-Za-z0-9]/, 'Password must contain at least one special symbol'),
+    .min(10,'Password is too short - should be 10 chars minimum.')
+    .matches(/[A-Z]/,'Password must contain at least one capital letter.')
+    .matches(/[0-9]/,'Password must contain at least one digit.')
+    .matches(/[^A-Za-z0-9]/,'Password must contain at least one special symbol'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')
 });
 
