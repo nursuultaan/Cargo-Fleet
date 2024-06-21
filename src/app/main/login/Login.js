@@ -46,7 +46,7 @@ function Login() {
           <CardContent className="flex flex-col items-center justify-center w-full max-w-320">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }}>
               <div className="flex items-center mb-48">
-                <img className="logo-icon w-72 mr-5" src="assets/images/logos/cargoFleet.png" alt="logo" />
+                <img className="logo-icon w-128 mr-5" src="assets/images/logos/cargoFleet.png" alt="logo" />
                 <div className="border-l-1 mr-4 w-1 h-40" />
                 <div>
                   <Typography className="text-24 font-semibold logo-text" color="inherit">
