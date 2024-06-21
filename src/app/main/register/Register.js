@@ -2,12 +2,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FirebaseRegisterTab from './tabs/FirebaseRegisterTab';
 
@@ -31,8 +28,6 @@ const useStyles = makeStyles(theme => ({
 
 function Register() {
   const classes = useStyles();
-  const [selectedTab, setSelectedTab] = useState(1);
-
 
   return (
     <div
@@ -50,8 +45,8 @@ function Register() {
           {/* <CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320"> */}
           <CardContent className="flex flex-col items-center justify-center w-full max-w-320">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }}>
-              <div className="flex items-center justif-center mb-32">
-                <img className="logo-icon w-48" src="assets/images/logos/CargoFLEETlogo.png" alt="logo" />
+              <div className="flex items-center justify-center mb-32">
+                <img className="logo-icon  w-128 mr-5" src="assets/images/logos/cargoFleet.png" alt="logo" />
                 <div className="border-l-1 mr-4 w-1 h-40" />
                 <div>
                   <Typography className="text-24 font-semibold logo-text" color="inherit">
@@ -63,10 +58,7 @@ function Register() {
                 </div>
               </div>
             </motion.div>
-
-            <Tabs variant="fullWidth" className="w-full mb-32">
-            </Tabs>
-            {selectedTab && <FirebaseRegisterTab />}
+            <FirebaseRegisterTab />
           </CardContent>
 
           <div className="flex flex-col items-center justify-center pb-32">
@@ -86,14 +78,13 @@ function Register() {
           <div className="max-w-320">
             <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}>
               <Typography variant="h3" color="inherit" className="font-semibold leading-tight">
-                Welcome
-                to Cargo FLEET!
+                Welcome to Cargo FLEET!
               </Typography>
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
               <Typography variant="subtitle1" color="inherit" className="mt-32">
-              Vehicle management tool that can allow a tracking company to manage its truck fleet
+                Vehicle management tool that can allow a tracking company to manage its truck fleet
               </Typography>
             </motion.div>
           </div>
