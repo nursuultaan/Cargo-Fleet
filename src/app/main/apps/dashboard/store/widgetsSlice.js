@@ -21,7 +21,7 @@ async function getCityWeather() {
   );
   console.log("Weather :",res);
   const weatherData = await res.data;
-  return "Weather";
+  return "W";
 }
 
 export const getWidgets = createAsyncThunk('projectDashboardApp/widgets/getWidgets', async () => {
