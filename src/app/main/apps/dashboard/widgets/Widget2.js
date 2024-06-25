@@ -5,8 +5,11 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { memo, useState } from 'react';
 
-function Widget2(props) {
-  const [currentRange, setCurrentRange] = useState(props.widget.currentRange);
+function Widget2({ widget }) {
+  let keyOfObj = Object.keys(widget);
+  const [currentRange, setCurrentRange] = useState(keyOfObj[1]);
+  console.log(widget, 'props');
+  console.log(currentRange, 'currentRange');
 
   function handleChangeRange(ev) {
     setCurrentRange(ev.target.value);
@@ -27,10 +30,11 @@ function Widget2(props) {
           disableUnderline
           variant="standard"
         >
-          {Object.entries(props.widget.ranges).map(([key, n]) => {
+          {/* name of topics */}
+          {Object.entries(widget).map(([key, n]) => {
             return (
               <option key={key} value={key}>
-                {n}
+                {key}
               </option>
             );
           })}
@@ -40,9 +44,9 @@ function Widget2(props) {
         </IconButton>
       </div>
       <div className="text-center py-12">
-        <Typography className="text-18 text-blue-800 font-normal mb-8">{props.widget.data.name}</Typography>
+        <Typography className="text-18 text-blue-800 font-normal mb-8">Vehicles</Typography>
         <Typography className="text-72 font-semibold leading-none text-blue tracking-tighter">
-          {props.widget.data.count[currentRange]}
+          {widget[currentRange]}
         </Typography>
       </div>
       {/* <Typography className="p-20 pt-0 h-56 flex justify-center items-end text-13 font-medium" color="textSecondary">
