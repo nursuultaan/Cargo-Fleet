@@ -22,7 +22,7 @@ function HomeTab() {
   }, [status]);
   useEffect(() => {
     dispatch(fetchDashboardData());
-  }, []);
+  }, [dispatch]);
 
   const container = {
     show: {
