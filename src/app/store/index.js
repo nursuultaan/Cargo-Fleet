@@ -1,7 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createReducer from './rootReducer';
-import { Dashboard } from '@material-ui/icons';
-import dashboardReducer from '../main/apps/dashboard/store/widgetsSlice1-4';
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./rootReducer', () => {
