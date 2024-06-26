@@ -25,17 +25,13 @@ export default function LongTextSnackbar() {
     <div className={classes.root}>
       <SnackbarContent message="I love snacks." action={action} />
       <SnackbarContent
-        message={
-          'I love candy. I love cookies. I love cupcakes. \
-          I love cheesecake. I love chocolate.'
-        }
+        message={'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'}
       />
       <SnackbarContent message="I love candy. I love cookies. I love cupcakes." action={action} />
       <SnackbarContent
-        message={
-          'I love candy. I love cookies. I love cupcakes. \
-          I love cheesecake. I love chocolate.'
-        }
+        message={'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'}
         action={action}
       />
     </div>
