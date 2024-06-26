@@ -16,7 +16,6 @@ function HomeTab() {
   const dispatch = useDispatch();
   const widgets = useSelector(selectWidgets);
   const { data, status } = useSelector(state => state.dashboardReducer);
-  // console.log(data, 'useSee');
 
   const [isLoading, setIsLoading] = useState('');
   useEffect(() => {
@@ -25,7 +24,7 @@ function HomeTab() {
   useEffect(() => {
     dispatch(fetchDashboardData());
   }, []);
-  // console.log(isLoading, 'status');
+
   const container = {
     show: {
       transition: {

@@ -8,8 +8,7 @@ import { memo, useState } from 'react';
 function Widget1({ widget }) {
   let keyOfObj = Object.keys(widget);
   const [currentRange, setCurrentRange] = useState(keyOfObj[1]);
-  console.log(widget, 'props');
-  console.log(currentRange, 'currentRange');
+ 
 
   function handleChangeRange(ev) {
     setCurrentRange(ev.target.value);
