@@ -1,7 +1,6 @@
 import { createEntityAdapter, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { changeWeatherWidgetData,getWeather } from './weatherWidgetHelpers';
-
+import { changeWeatherWidgetData, getWeather } from './weatherWidgetHelpers';
 
 export const getWidgets = createAsyncThunk('projectDashboardApp/widgets/getWidgets', async () => {
   const response = await axios.get('/api/project-dashboard-app/widgets');
