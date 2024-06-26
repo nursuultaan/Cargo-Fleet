@@ -8,7 +8,6 @@ import { memo, useState } from 'react';
 function Widget1({ widget }) {
   let keyOfObj = Object.keys(widget);
   const [currentRange, setCurrentRange] = useState(keyOfObj[1]);
- 
 
   function handleChangeRange(ev) {
     setCurrentRange(ev.target.value);
@@ -33,14 +32,11 @@ function Widget1({ widget }) {
           {Object.entries(widget).map(([key, n]) => {
             return (
               <option key={key} value={key}>
-                {key}
+                {key.slice(0, 1).toUpperCase() + key.slice(1)}
               </option>
             );
           })}
         </Select>
-        <IconButton aria-label="more">
-          <Icon>more_vert</Icon>
-        </IconButton>
       </div>
       <div className="text-center py-12">
         <Typography className="text-18 text-blue-800 font-normal mb-8">Drivers</Typography>
