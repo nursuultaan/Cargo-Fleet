@@ -1,5 +1,5 @@
-import { forwardRef, useRef, useEffect } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
+// import { forwardRef, useRef, useEffect } from 'react';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import PropTypes from 'prop-types';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,20 +13,20 @@ import { useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } fro
 import clsx from 'clsx';
 import ContactsTablePaginationActions from './VehiclesTablePaginationActions';
 
-const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
-  const defaultRef = useRef();
-  const resolvedRef = ref || defaultRef;
+// const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
+//   const defaultRef = useRef();
+//   const resolvedRef = ref || defaultRef;
 
-  useEffect(() => {
-    resolvedRef.current.indeterminate = indeterminate;
-  }, [resolvedRef, indeterminate]);
+//   useEffect(() => {
+//     resolvedRef.current.indeterminate = indeterminate;
+//   }, [resolvedRef, indeterminate]);
 
-  return (
-    <>
-      <Checkbox ref={resolvedRef} {...rest} />
-    </>
-  );
-});
+//   return (
+//     <>
+//       <Checkbox ref={resolvedRef} {...rest} />
+//     </>
+//   );
+// });
 
 const EnhancedTable = ({ columns, data, onRowClick }) => {
   const {
@@ -41,40 +41,41 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
     {
       columns,
       data,
-      autoResetPage: true
+      autoResetPage: true,
+      initialState: { pageIndex: 0, pageSize: 20 }
     },
     useGlobalFilter,
     useSortBy,
     usePagination,
-    useRowSelect,
-    hooks => {
-      hooks.allColumns.push(_columns => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          sortable: false,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox.  Pagination is a problem since this will select all
-          // rows even though not all rows are on the current page.  The solution should
-          // be server side pagination.  For one, the clients should not download all
-          // rows in most cases.  The client should only download data for the current page.
-          // In that case, getToggleAllRowsSelectedProps works fine.
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} onClick={ev => ev.stopPropagation()} />
-            </div>
-          )
-        },
-        ..._columns
-      ]);
-    }
+    useRowSelect
+    // hooks => {
+    //   hooks.allColumns.push(_columns => [
+    //     // Let's make a column for selection
+    //     {
+    //       id: 'selection',
+    //       sortable: false,
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox.  Pagination is a problem since this will select all
+    //       // rows even though not all rows are on the current page.  The solution should
+    //       // be server side pagination.  For one, the clients should not download all
+    //       // rows in most cases.  The client should only download data for the current page.
+    //       // In that case, getToggleAllRowsSelectedProps works fine.
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} onClick={ev => ev.stopPropagation()} />
+    //         </div>
+    //       )
+    //     },
+    //     ..._columns
+    //   ]);
+    // }
   );
 
   const handleChangePage = (event, newPage) => {
@@ -119,7 +120,7 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
               return (
                 <TableRow
                   {...row.getRowProps()}
-                  onClick={ev => onRowClick(ev, row)}
+                  // onClick={ev => onRowClick(ev, row)}
                   className="truncate cursor-pointer"
                 >
                   {row.cells.map(cell => {
@@ -140,7 +141,7 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
         classes={{
           root: 'flex-shrink-0 border-t-1'
         }}
-        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: data.length + 1 }]}
+        rowsPerPageOptions={[20, 30, { label: 'All', value: data.length + 1 }]}
         colSpan={5}
         count={data.length}
         rowsPerPage={pageSize}
