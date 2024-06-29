@@ -2,18 +2,32 @@ import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/too
 import axios from 'axios';
 import { getUserData } from './userSlice';
 
-export const getVehicles = createAsyncThunk(
-  'vehicle-list-app/vehicles/getVehicles',
-  async (routeParams, { getState }) => {
-    routeParams = routeParams || getState().vehiclesApp.vehicles.routeParams;
-    const response = await axios.get('/api/vehicle-list-app/vehicles', {
-      params: routeParams
-    });
-    const data = await response.data;
+const VEHICLES_API = 'https://cargofleet-api.fly.dev/team1/api/vehicles';
+const TOKEN = 'Zb84MzAROCrhmF6t';
 
-    return { data, routeParams };
-  }
-);
+export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicles', async () => {
+  const response = await axios.get(VEHICLES_API, {
+    headers: {
+      Authorization: TOKEN
+    }
+  });
+  const data = await response.data;
+  console.log('data', data);
+  return data;
+});
+
+// export const getVehicles = createAsyncThunk(
+//   'vehicle-list-app/vehicles/getVehicles',
+//   async (routeParams, { getState }) => {
+//     routeParams = routeParams || getState().vehiclesApp.vehicles.routeParams;
+//     const response = await axios.get('/api/vehicle-list-app/vehicles', {
+//       params: routeParams
+//     });
+//     const data = await response.data;
+
+//     return { data, routeParams };
+//   }
+// );
 
 // export const addVehicle = createAsyncThunk(
 //   'vehiclesApp/vehicles/addVehicle',

@@ -1,21 +1,11 @@
 import { motion } from 'framer-motion';
 import FuseUtils from '@fuse/utils';
 import Typography from '@material-ui/core/Typography';
+import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
 import { selectVehicles } from './store/vehiclesSlice';
-
-const formatData = vehicles =>
-  vehicles.map(vehicle => {
-    const totalCost = `$${(vehicle.serviceCost + vehicle.fuelCost).toLocaleString()}`;
-    return {
-      ...vehicle,
-      isAssigned: vehicle.isAssigned ? 'YES' : 'NO',
-      totalCost,
-      millage: vehicle.millage.toLocaleString()
-    };
-  });
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
@@ -27,24 +17,10 @@ function VehiclesList(props) {
 
   const columns = useMemo(
     () => [
-      // {
-      //   Header: ({ selectedFlatRows }) => {
-      //     const selectedRowIds = selectedFlatRows.map(row => row.original.id);
-
-      //     return selectedFlatRows.length > 0 && <VehiclesMultiSelectMenu selectedContactIds={selectedRowIds} />;
-      //   },
-      //   accessor: 'avatar',
-      //   Cell: ({ row }) => {
-      //     return <Avatar className="mx-8" alt={row.original.name} src={row.original.avatar} />;
-      //   },
-      //   className: 'justify-center',
-      //   width: 64,
-      //   sortable: false
-      // },
       {
-        Header: 'Brand',
-        accessor: 'brand',
-        className: 'font-medium',
+        id: 'active',
+        Header: 'Status',
+        accessor: d => (d.active ? 'Active' : 'Inactive'),
         sortable: true
       },
       {
@@ -53,67 +29,67 @@ function VehiclesList(props) {
         className: 'font-medium',
         sortable: true
       },
-      // TODO: add Production Year
-      // {
-      //   Header: 'Production Year',
-      //   accessor: 'year',
-      //   sortable: true
-      // },
       {
         Header: 'Plate Number',
-        accessor: 'plateNumber',
+        accessor: 'plate_number',
         sortable: true
       },
       {
-        Header: 'Assigned Status',
-        accessor: 'isAssigned',
+        Header: 'Engine Number',
+        accessor: 'engine_number',
         sortable: true
       },
       {
-        Header: 'Vehicle Status',
-        accessor: 'vehicleStatus',
+        Header: 'Year',
+        accessor: d => d.manufacture_year.slice(0, 4),
         sortable: true
       },
       {
-        Header: 'Total Cost',
-        accessor: 'totalCost',
+        Header: 'Fuel Type',
+        accessor: d =>
+          d.fuel_type === 'natural_gas' ? 'Natural Gas' : d.fuel_type.charAt(0).toUpperCase() + d.fuel_type.slice(1),
         sortable: true
       },
       {
-        Header: 'Millage',
-        accessor: 'millage',
-        sortable: true
+        id: 'issues',
+        Header: 'Issues',
+        accessor: d => d.issues.length,
+        sortable: false
+      },
+      {
+        Header: 'Actions',
+        id: 'action',
+        width: 128,
+        sortable: false,
+        Cell: ({ row }) => (
+          <div className="flex items-center">
+            <IconButton
+              onClick={ev => {
+                ev.stopPropagation();
+                // dispatch(moreInfo(row.original.id));
+              }}
+            >
+              <Icon>info</Icon>
+            </IconButton>
+            <IconButton
+              onClick={ev => {
+                ev.stopPropagation();
+                // dispatch(editContact(row.original.id));
+              }}
+            >
+              <Icon>edit</Icon>
+            </IconButton>
+            <IconButton
+              onClick={ev => {
+                ev.stopPropagation();
+                // dispatch(removeContact(row.original.id));
+              }}
+            >
+              <Icon>delete</Icon>
+            </IconButton>
+          </div>
+        )
       }
-
-      // {
-      //   id: 'action',
-      //   width: 128,
-      //   sortable: false,
-      //   Cell: ({ row }) => (
-      //     <div className="flex items-center">
-      //       <IconButton
-      //         onClick={ev => {
-      //           ev.stopPropagation();
-      //           dispatch(toggleStarredContact(row.original.id));
-      //         }}
-      //       >
-      //         {user.starred && user.starred.includes(row.original.id) ? (
-      //           <Icon className="text-yellow-700">star</Icon>
-      //         ) : (
-      //           <Icon>star_border</Icon>
-      //         )}
-      //       </IconButton>
-      //       {/* <IconButton
-      //         onClick={ev => {
-      //           ev.stopPropagation();
-      //           dispatch(removeContact(row.original.id));
-      //         }}
-      //       >
-      //         <Icon>delete</Icon>
-      //       </IconButton> */}
-      //     </div>
-      //   )
-      // }
     ],
     // eslint-disable-next-line
     [dispatch, vehicles]
@@ -146,19 +122,9 @@ function VehiclesList(props) {
     );
   }
 
-  const formattedData = formatData(filteredData);
-
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
-      <VehiclesTable
-        columns={columns}
-        data={formattedData}
-        // onRowClick={(ev, row) => {
-        //   if (row) {
-        //     dispatch(openEditContactDialog(row.original));
-        //   }
-        // }}
-      />
+      <VehiclesTable columns={columns} data={filteredData} />
     </motion.div>
   );
 }
