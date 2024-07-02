@@ -1,346 +1,315 @@
-// import FuseUtils from '@fuse/utils/FuseUtils';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import AppBar from '@material-ui/core/AppBar';
-// import Avatar from '@material-ui/core/Avatar';
-// import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import Icon from '@material-ui/core/Icon';
-// import IconButton from '@material-ui/core/IconButton';
-// import TextField from '@material-ui/core/TextField';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import { useCallback, useEffect } from 'react';
-// import { Controller, useForm } from 'react-hook-form';
-// import { useDispatch, useSelector } from 'react-redux';
+import FuseUtils from '@fuse/utils/FuseUtils';
+import { yupResolver } from '@hookform/resolvers/yup';
+import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { useCallback, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
-// import _ from '@lodash';
-// import * as yup from 'yup';
+import _ from '@lodash';
+import * as yup from 'yup';
 
-// // import {
-// //   removeVehicle,
-// //   updateVehicle,
-// //   addVehicle,
-// //   closeNewVehicleDialog,
-// //   closeEditVehicleDialog
-// // } from './store/vehiclesSlice';
+import {
+  removeVehicle,
+  updateVehicle,
+  addVehicle,
+  closeNewVehicleDialog,
+  closeEditVehicleDialog
+} from './store/vehiclesSlice';
 
-// const defaultValues = {
-//   id: '',
-//   name: '',
-//   lastName: '',
-//   avatar: 'assets/images/avatars/profile.jpg',
-//   nickname: '',
-//   company: '',
-//   jobTitle: '',
-//   email: '',
-//   phone: '',
-//   address: '',
-//   birthday: '',
-//   notes: ''
-// };
+function formatDateString(dateString) {
+  try {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    console.error('Date format error.');
+    return '';
+  }
+}
 
-// /**
-//  * Form Validation Schema
-//  */
-// const schema = yup.object().shape({
-//   name: yup.string().required('You must enter a name')
-// });
+const defaultValues = {
+  id: '',
+  model: '',
+  manufacture_year: '',
+  image_url: '',
+  plate_number: '',
+  engine_number: '',
+  fuel_type: '',
+  created_at: '',
+  updated_at: '',
+  active: false
+};
 
-// function VehicleDialog(props) {
-//   const dispatch = useDispatch();
-//   const vehicleDialog = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.vehicleDialog);
+/**
+ * Form Validation Schema
+ */
+const schema = yup.object().shape({
+  model: yup.string().required('You must enter a model'),
+  manufacture_year: yup.string().required('You must enter a manufacture year'),
+  plate_number: yup.string().required('You must enter a plate number'),
+  engine_number: yup.string().required('You must enter an engine number'),
+  fuel_type: yup.string().required('You must enter a fuel type')
+});
 
-//   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
-//     mode: 'onChange',
-//     defaultValues,
-//     resolver: yupResolver(schema)
-//   });
+function VehicleDialog(props) {
+  const dispatch = useDispatch();
+  const vehicleDialog = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.vehicleDialog);
+  const { data } = vehicleDialog;
 
-//   const { isValid, dirtyFields, errors } = formState;
+  const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
+    mode: 'onChange',
+    defaultValues,
+    resolver: yupResolver(schema)
+  });
 
-//   const id = watch('id');
-//   const name = watch('name');
-//   const avatar = watch('avatar');
+  const { isValid, dirtyFields, errors } = formState;
 
-//   /**
-//    * Initialize Dialog with Data
-//    */
-//   const initDialog = useCallback(() => {
-//     /**
-//      * Dialog type: 'edit'
-//      */
-//     if (vehicleDialog.type === 'edit' && vehicleDialog.data) {
-//       reset({ ...vehicleDialog.data });
-//     }
+  const id = watch('id');
+  const model = watch('model');
 
-//     /**
-//      * Dialog type: 'new'
-//      */
-//     if (vehicleDialog.type === 'new') {
-//       reset({
-//         ...defaultValues,
-//         ...vehicleDialog.data,
-//         id: FuseUtils.generateGUID()
-//       });
-//     }
-//   }, [vehicleDialog.data, vehicleDialog.type, reset]);
+  /**
+   * Initialize Dialog with Data
+   */
+  const initDialog = useCallback(() => {
+    /**
+     * Dialog type: 'edit'
+     */
+    if (vehicleDialog.type === 'edit' && vehicleDialog.data) {
+      reset({ ...vehicleDialog.data });
+    }
 
-//   /**
-//    * On Dialog Open
-//    */
-//   useEffect(() => {
-//     if (vehicleDialog.props.open) {
-//       initDialog();
-//     }
-//   }, [vehicleDialog.props.open, initDialog]);
+    /**
+     * Dialog type: 'new'
+     */
+    if (vehicleDialog.type === 'new') {
+      reset({
+        ...defaultValues,
+        ...vehicleDialog.data,
+        id: FuseUtils.generateGUID()
+      });
+    }
+  }, [vehicleDialog.data, vehicleDialog.type, reset]);
 
-//   /**
-//    * Close Dialog
-//    */
-//   function closeComposeDialog() {
-//     return vehicleDialog.type === 'edit' ? dispatch(closeEditVehicleDialog()) : dispatch(closeNewVehicleDialog());
-//   }
+  /**
+   * On Dialog Open
+   */
+  useEffect(() => {
+    if (vehicleDialog.props.open) {
+      initDialog();
+    }
+  }, [vehicleDialog.props.open, initDialog]);
 
-//   /**
-//    * Form Submit
-//    */
-//   function onSubmit(data) {
-//     if (vehicleDialog.type === 'new') {
-//       dispatch(addVehicle(data));
-//     } else {
-//       dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
-//     }
-//     closeComposeDialog();
-//   }
+  /**
+   * Close Dialog
+   */
+  function closeComposeDialog() {
+    return vehicleDialog.type === 'edit' ? dispatch(closeEditVehicleDialog()) : dispatch(closeNewVehicleDialog());
+  }
 
-//   /**
-//    * Remove Event
-//    */
-//   function handleRemove() {
-//     dispatch(removeVehicle(id));
-//     closeComposeDialog();
-//   }
+  /**
+   * Form Submit
+   */
+  function onSubmit(data) {
+    if (vehicleDialog.type === 'new') {
+      dispatch(addVehicle(data));
+    } else {
+      dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
+    }
+    closeComposeDialog();
+  }
 
-//   return (
-//     <Dialog
-//       classes={{
-//         paper: 'm-24'
-//       }}
-//       {...vehicleDialog.props}
-//       // onClose={closeComposeDialog}
-//       fullWidth
-//       maxWidth="xs"
-//     >
-//       <AppBar position="static" elevation={0}>
-//         <Toolbar className="flex w-full">
-//           <Typography variant="subtitle1" color="inherit">
-//             {vehicleDialog.type === 'new' ? 'New Vehicle' : 'Edit Vehicle'}
-//           </Typography>
-//         </Toolbar>
-//         <div className="flex flex-col items-center justify-center pb-24">
-//           <Avatar className="w-96 h-96" alt="vehicle avatar" src={avatar} />
-//           {vehicleDialog.type === 'edit' && (
-//             <Typography variant="h6" color="inherit" className="pt-8">
-//               {name}
-//             </Typography>
-//           )}
-//         </div>
-//       </AppBar>
-//       <form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:overflow-hidden">
-//         <DialogContent classes={{ root: 'p-24' }}>
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">account_circle</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="name"
-//               render={({ field }) => (
-//                 <TextField
-//                   {...field}
-//                   className="mb-24"
-//                   label="Name"
-//                   id="name"
-//                   error={!!errors.name}
-//                   helperText={errors?.name?.message}
-//                   variant="outlined"
-//                   required
-//                   fullWidth
-//                 />
-//               )}
-//             />
-//           </div>
+  /**
+   * Remove Event
+   */
+  function handleRemove() {
+    dispatch(removeVehicle(id));
+    closeComposeDialog();
+  }
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20" />
+  return (
+    <Dialog
+      classes={{
+        paper: 'm-24'
+      }}
+      {...vehicleDialog.props}
+      fullWidth
+      maxWidth="xs"
+    >
+      <AppBar position="static" elevation={0}>
+        <Toolbar className="flex w-full">
+          <Typography variant="subtitle1" color="inherit">
+            {vehicleDialog.type === 'new' ? 'New Vehicle' : 'Edit Vehicle'}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:overflow-hidden">
+        <DialogContent classes={{ root: 'p-24' }}>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">directions_car</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="model"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Model"
+                  id="model"
+                  error={!!errors.model}
+                  helperText={errors?.model?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
 
-//             <Controller
-//               control={control}
-//               name="lastName"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Last name" id="lastName" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">calendar_today</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="manufacture_year"
+              render={({ field }) => (
+                <TextField
+                  defaultValue={data != null ? formatDateString(data.manufacture_year) : ''}
+                  className="mb-24"
+                  label="Manufacture Year"
+                  id="manufacture_year"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  error={!!errors.manufacture_year}
+                  helperText={errors?.manufacture_year?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">star</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="nickname"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Nickname" id="nickname" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">image</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="image_url"
+              render={({ field }) => (
+                <TextField {...field} className="mb-24" label="Image URL" id="image_url" variant="outlined" fullWidth />
+              )}
+            />
+          </div>
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">phone</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="phone"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Phone" id="phone" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">confirmation_number</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="plate_number"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Plate Number"
+                  id="plate_number"
+                  error={!!errors.plate_number}
+                  helperText={errors?.plate_number?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">email</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="email"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Email" id="email" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">settings</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="engine_number"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Engine Number"
+                  id="engine_number"
+                  error={!!errors.engine_number}
+                  helperText={errors?.engine_number?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">domain</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="company"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Company" id="company" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">local_gas_station</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="fuel_type"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Fuel Type"
+                  id="fuel_type"
+                  error={!!errors.fuel_type}
+                  helperText={errors?.fuel_type?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
+        </DialogContent>
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">work</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="jobTitle"
-//               render={({ field }) => (
-//                 <TextField
-//                   {...field}
-//                   className="mb-24"
-//                   label="Job title"
-//                   id="jobTitle"
-//                   name="jobTitle"
-//                   variant="outlined"
-//                   fullWidth
-//                 />
-//               )}
-//             />
-//           </div>
+        {vehicleDialog.type === 'new' ? (
+          <DialogActions className="justify-between p-4 pb-16">
+            <div className="px-16">
+              <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
+                Add
+              </Button>
+            </div>
+          </DialogActions>
+        ) : (
+          <DialogActions className="justify-between p-4 pb-16">
+            <div className="px-16">
+              <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
+                Save
+              </Button>
+            </div>
+            <IconButton onClick={() => dispatch(closeNewVehicleDialog())}>
+              <Icon>cancel</Icon>
+            </IconButton>
+          </DialogActions>
+        )}
+      </form>
+    </Dialog>
+  );
+}
 
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">cake</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="birthday"
-//               render={({ field }) => (
-//                 <TextField
-//                   {...field}
-//                   className="mb-24"
-//                   id="birthday"
-//                   label="Birthday"
-//                   type="date"
-//                   InputLabelProps={{
-//                     shrink: true
-//                   }}
-//                   variant="outlined"
-//                   fullWidth
-//                 />
-//               )}
-//             />
-//           </div>
-
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">home</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="address"
-//               render={({ field }) => (
-//                 <TextField {...field} className="mb-24" label="Address" id="address" variant="outlined" fullWidth />
-//               )}
-//             />
-//           </div>
-
-//           <div className="flex">
-//             <div className="min-w-48 pt-20">
-//               <Icon color="action">note</Icon>
-//             </div>
-//             <Controller
-//               control={control}
-//               name="notes"
-//               render={({ field }) => (
-//                 <TextField
-//                   {...field}
-//                   className="mb-24"
-//                   label="Notes"
-//                   id="notes"
-//                   variant="outlined"
-//                   multiline
-//                   rows={5}
-//                   fullWidth
-//                 />
-//               )}
-//             />
-//           </div>
-//         </DialogContent>
-
-//         {vehicleDialog.type === 'new' ? (
-//           <DialogActions className="justify-between p-4 pb-16">
-//             <div className="px-16">
-//               <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
-//                 Add
-//               </Button>
-//             </div>
-//           </DialogActions>
-//         ) : (
-//           <DialogActions className="justify-between p-4 pb-16">
-//             <div className="px-16">
-//               <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
-//                 Save
-//               </Button>
-//             </div>
-//             <IconButton onClick={handleRemove}>
-//               <Icon>delete</Icon>
-//             </IconButton>
-//           </DialogActions>
-//         )}
-//       </form>
-//     </Dialog>
-//   );
-// }
-
-// export default VehicleDialog;
+export default VehicleDialog;
