@@ -15,6 +15,10 @@ const VehiclesAppConfig = {
     {
       path: '/apps/vehicles',
       component: () => <Redirect to="/apps/vehicles/all" />
+    },
+    {
+      path: '/apps/vehicleInfo/:id',
+      component: lazy(() => import('./VehicleInfo'))
     }
   ]
 };

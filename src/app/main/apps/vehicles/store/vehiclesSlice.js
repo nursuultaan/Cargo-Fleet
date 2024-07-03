@@ -1,19 +1,31 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserData } from './userSlice';
+import ConfirmDialog from '../ConfirmDialog';
 
 const VEHICLES_API = 'https://cargofleet-api.fly.dev/team1/api/vehicles';
 const TOKEN = 'Zb84MzAROCrhmF6t';
 
-export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicles', async () => {
-  const response = await axios.get(VEHICLES_API, {
-    headers: {
-      Authorization: TOKEN
+export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicles', async (_, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(VEHICLES_API, {
+      headers: {
+        Authorization: TOKEN
+      }
+    });
+
+    console.log('response', response);
+
+    if (!response.status === 200) {
+      throw new Error('Server Error!');
     }
-  });
-  const data = await response.data;
-  console.log('data', data);
-  return data;
+
+    const data = await response.data;
+
+    return data;
+  } catch (error) {
+    rejectWithValue(error.message);
+  }
 });
 
 // export const getVehicles = createAsyncThunk(
@@ -35,8 +47,6 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 //     const response = await axios.post('/api/vehicles-app/add-vehicle', { vehicle });
 //     const data = await response.data;
 
-//     dispatch(getVehicles());
-
 //     return data;
 //   }
 // );
@@ -53,14 +63,26 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 //   }
 // );
 
-// export const removeVehicle = createAsyncThunk(
-//   'vehiclesApp/vehicles/removeVehicle',
-//   async (vehicleId, { dispatch, getState }) => {
-//     await axios.post('/api/vehicles-app/remove-vehicle', { vehicleId });
+export const removeVehicle = createAsyncThunk(
+  'vehiclesApp/vehicles/removeVehicle',
+  async (vehicleId, { dispatch, getState, rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${VEHICLES_API}/${vehicleId}`, {
+        headers: {
+          Authorization: TOKEN
+        }
+      });
 
-//     return vehicleId;
-//   }
-// );
+      if (!response.status == 204) {
+        throw new Error('The vehicles is not deleted');
+      }
+
+      return vehicleId;
+    } catch (error) {
+      rejectWithValue(error.message);
+    }
+  }
+);
 
 // export const removeVehicles = createAsyncThunk(
 //   'vehiclesApp/vehicles/removeVehicles',
@@ -144,6 +166,13 @@ const vehiclesSlice = createSlice({
         open: false
       },
       data: null
+    },
+    confirmDialog: {
+      type: 'delete',
+      props: {
+        open: false
+      },
+      data: null
     }
   }),
   reducers: {
@@ -188,13 +217,31 @@ const vehiclesSlice = createSlice({
         },
         data: null
       };
+    },
+    openDeleteVehicleDialog: (state, action) => {
+      state.confirmDialog = {
+        type: 'delete',
+        props: {
+          open: true
+        },
+        data: action.payload
+      };
+    },
+    closeDeleteVehicleDialog: (state, action) => {
+      state.confirmDialog = {
+        type: 'delete',
+        props: {
+          open: false
+        },
+        data: action.payload
+      };
     }
   },
   extraReducers: {
     // [updateVehicle.fulfilled]: vehiclesAdapter.upsertOne,
     // [addVehicle.fulfilled]: vehiclesAdapter.addOne,
     // [removeVehicles.fulfilled]: (state, action) => vehiclesAdapter.removeMany(state, action.payload),
-    // [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
+    [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
     [getVehicles.fulfilled]: (state, action) => {
       const { data, routeParams } = action.payload;
       vehiclesAdapter.setAll(state, data);
@@ -209,7 +256,9 @@ export const {
   openNewVehicleDialog,
   closeNewVehicleDialog,
   openEditVehicleDialog,
-  closeEditVehicleDialog
+  closeEditVehicleDialog,
+  openDeleteVehicleDialog,
+  closeDeleteVehicleDialog
 } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;

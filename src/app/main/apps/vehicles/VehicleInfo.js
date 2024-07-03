@@ -12,7 +12,7 @@ import reducer from './store';
 import { getVehicles } from './store/vehiclesSlice';
 // import { getUserData } from './store/userSlice';
 
-function VehiclesApp(props) {
+function VehicleInfo(props) {
   const dispatch = useDispatch();
 
   const pageLayout = useRef(null);
@@ -34,8 +34,7 @@ function VehiclesApp(props) {
           wrapper: 'min-h-0'
         }}
         header={<VehiclesHeader pageLayout={pageLayout} />}
-        content={<VehiclesList />}
-        // leftSidebarContent={<VehiclesSidebarContent />}
+        content={<div>INFO! {routeParams?.id}</div>}
         sidebarInner
         ref={pageLayout}
         innerScroll
@@ -46,4 +45,4 @@ function VehiclesApp(props) {
   );
 }
 
-export default withReducer('vehiclesApp', reducer)(VehiclesApp);
+export default withReducer('vehicleInfo', reducer)(VehicleInfo);
