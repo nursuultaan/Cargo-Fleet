@@ -1,7 +1,6 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +9,8 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -121,11 +122,11 @@ function VehicleDialog(props) {
   /**
    * Form Submit
    */
-  function onSubmit(data) {
+  function onSubmit(submitData) {
     if (vehicleDialog.type === 'new') {
-      dispatch(addVehicle(data));
+      dispatch(addVehicle(submitData));
     } else {
-      dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
+      dispatch(updateVehicle({ ...vehicleDialog.data, ...submitData }));
     }
     closeComposeDialog();
   }
@@ -271,17 +272,22 @@ function VehicleDialog(props) {
               control={control}
               name="fuel_type"
               render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  label="Fuel Type"
+                <Select
                   id="fuel_type"
+                  label="Fuel Type"
                   error={!!errors.fuel_type}
-                  helperText={errors?.fuel_type?.message}
+                  {...field}
                   variant="outlined"
+                  helperText={errors?.fuel_type?.message}
+                  placeholder="Fuel type"
+                  className="w-full"
                   required
-                  fullWidth
-                />
+                >
+                  <MenuItem value="natural Gas">Natural Gas</MenuItem>
+                  <MenuItem value="propane">Propane</MenuItem>
+                  <MenuItem value="diesel">Diesel</MenuItem>
+                  <MenuItem value="gasoline">Gasoline</MenuItem>
+                </Select>
               )}
             />
           </div>

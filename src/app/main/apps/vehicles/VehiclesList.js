@@ -76,6 +76,7 @@ function VehiclesList(props) {
               onClick={ev => {
                 ev.stopPropagation();
                 console.log('Edit');
+                console.log(row.original);
                 dispatch(openEditVehicleDialog(row.original));
               }}
             >
