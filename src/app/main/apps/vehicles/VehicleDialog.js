@@ -283,7 +283,7 @@ function VehicleDialog(props) {
                   className="w-full"
                   required
                 >
-                  <MenuItem value="natural Gas">Natural Gas</MenuItem>
+                  <MenuItem value="natural_gas">Natural Gas</MenuItem>
                   <MenuItem value="propane">Propane</MenuItem>
                   <MenuItem value="diesel">Diesel</MenuItem>
                   <MenuItem value="gasoline">Gasoline</MenuItem>
