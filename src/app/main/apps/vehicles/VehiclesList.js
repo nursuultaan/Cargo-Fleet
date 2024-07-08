@@ -5,13 +5,14 @@ import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
-import { selectVehicles } from './store/vehiclesSlice';
+import { openEditVehicleDialog, selectVehicles } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
   const vehicles = useSelector(selectVehicles);
   const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
+  const store = useSelector(state => state.vehiclesApp);
 
   const [filteredData, setFilteredData] = useState(null);
 
@@ -74,7 +75,9 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(editContact(row.original.id));
+                console.log('Edit');
+                console.log(row.original);
+                dispatch(openEditVehicleDialog(row.original));
               }}
             >
               <Icon>edit</Icon>
@@ -82,7 +85,6 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(removeContact(row.original.id));
               }}
             >
               <Icon>delete</Icon>

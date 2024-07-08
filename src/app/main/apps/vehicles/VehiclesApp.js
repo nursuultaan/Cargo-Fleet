@@ -10,6 +10,7 @@ import VehiclesList from './VehiclesList';
 // import VehiclesSidebarContent from './VehiclesSidebarContent';
 import reducer from './store';
 import { getVehicles } from './store/vehiclesSlice';
+import VehicleDialog from './VehicleDialog';
 // import { getUserData } from './store/userSlice';
 
 function VehiclesApp(props) {
@@ -40,7 +41,7 @@ function VehiclesApp(props) {
         ref={pageLayout}
         innerScroll
       />
-      {/* <VehicleDialog /> */}
+      <VehicleDialog />
     </>
   );
 }

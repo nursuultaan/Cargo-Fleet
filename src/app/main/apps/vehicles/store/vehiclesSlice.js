@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserData } from './userSlice';
 
@@ -11,9 +11,7 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
       Authorization: TOKEN
     }
   });
-  const data = await response.data;
-  console.log('data', data);
-  return data;
+  return response.data;
 });
 
 // export const getVehicles = createAsyncThunk(
@@ -29,72 +27,73 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 //   }
 // );
 
-// export const addVehicle = createAsyncThunk(
-//   'vehiclesApp/vehicles/addVehicle',
-//   async (vehicle, { dispatch, getState }) => {
-//     const response = await axios.post('/api/vehicles-app/add-vehicle', { vehicle });
-//     const data = await response.data;
+export const addVehicle = createAsyncThunk(
+  'vehiclesApp/vehicles/addVehicle',
+  async (vehicle, { dispatch, getState }) => {
+    const response = await axios.post('/api/vehicles-app/add-vehicle', { vehicle });
+    const data = await response.data;
 
-//     dispatch(getVehicles());
+    dispatch(getVehicles());
 
-//     return data;
-//   }
-// );
+    return data;
+  }
+);
 
-// export const updateVehicle = createAsyncThunk(
-//   'vehiclesApp/vehicles/updateVehicle',
-//   async (vehicle, { dispatch, getState }) => {
-//     const response = await axios.post('/api/vehicles-app/update-vehicle', { vehicle });
-//     const data = await response.data;
+export const updateVehicle = createAsyncThunk('vehiclesApp/vehicles/updateVehicle', async (vehicle, { dispatch }) => {
+  const response = await axios.put(`${VEHICLES_API}/${vehicle.id}`, vehicle, {
+    headers: {
+      Authorization: TOKEN
+    }
+  });
+  const { data } = response;
 
-//     dispatch(getVehicles());
+  dispatch(getVehicles());
 
-//     return data;
-//   }
-// );
+  return data;
+});
 
-// export const removeVehicle = createAsyncThunk(
-//   'vehiclesApp/vehicles/removeVehicle',
-//   async (vehicleId, { dispatch, getState }) => {
-//     await axios.post('/api/vehicles-app/remove-vehicle', { vehicleId });
+export const removeVehicle = createAsyncThunk(
+  'vehiclesApp/vehicles/removeVehicle',
+  async (vehicleId, { dispatch, getState }) => {
+    await axios.post('/api/vehicles-app/remove-vehicle', { vehicleId });
 
-//     return vehicleId;
-//   }
-// );
+    return vehicleId;
+  }
+);
 
-// export const removeVehicles = createAsyncThunk(
-//   'vehiclesApp/vehicles/removeVehicles',
-//   async (vehicleIds, { dispatch, getState }) => {
-//     await axios.post('/api/vehicles-app/remove-vehicles', { vehicleIds });
+export const removeVehicles = createAsyncThunk(
+  'vehiclesApp/vehicles/removeVehicles',
+  async (vehicleIds, { dispatch, getState }) => {
+    await axios.post('/api/vehicles-app/remove-vehicles', { vehicleIds });
 
-//     return vehicleIds;
-//   }
-// );
+    return vehicleIds;
+  }
+);
 
-// export const toggleStarredVehicle = createAsyncThunk(
-//   'vehiclesApp/vehicles/toggleStarredVehicle',
-//   async (vehicleId, { dispatch, getState }) => {
-//     const response = await axios.post('/api/vehicles-app/toggle-starred-vehicle', { vehicleId });
-//     const data = await response.data;
+export const toggleStarredVehicle = createAsyncThunk(
+  'vehiclesApp/vehicles/toggleStarredVehicle',
+  async (vehicleId, { dispatch, getState }) => {
+    const response = await axios.post('/api/vehicles-app/toggle-starred-vehicle', { vehicleId });
+    const data = await response.data;
 
-//     dispatch(getUserData());
+    dispatch(getUserData());
 
-//     dispatch(getVehicles());
+    dispatch(getVehicles());
 
-//     return data;
-//   }
-// );
+    return data;
+  }
+);
 
 // export const toggleStarredVehicles = createAsyncThunk(
 //   'vehiclesApp/vehicles/toggleStarredVehicles',
 //   async (vehicleIds, { dispatch, getState }) => {
 //     const response = await axios.post('/api/vehicles-app/toggle-starred-vehicles', { vehicleIds });
 //     const data = await response.data;
-
+//
 //     dispatch(getUserData());
-
+//
 //     dispatch(getVehicles());
-
+//
 //     return data;
 //   }
 // );
@@ -104,11 +103,11 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 //   async (vehicleIds, { dispatch, getState }) => {
 //     const response = await axios.post('/api/vehicles-app/set-vehicles-starred', { vehicleIds });
 //     const data = await response.data;
-
+//
 //     dispatch(getUserData());
-
+//
 //     dispatch(getVehicles());
-
+//
 //     return data;
 //   }
 // );
@@ -118,11 +117,11 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 //   async (vehicleIds, { dispatch, getState }) => {
 //     const response = await axios.post('/api/vehicles-app/set-vehicles-unstarred', { vehicleIds });
 //     const data = await response.data;
-
+//
 //     dispatch(getUserData());
-
+//
 //     dispatch(getVehicles());
-
+//
 //     return data;
 //   }
 // );
@@ -191,10 +190,10 @@ const vehiclesSlice = createSlice({
     }
   },
   extraReducers: {
-    // [updateVehicle.fulfilled]: vehiclesAdapter.upsertOne,
-    // [addVehicle.fulfilled]: vehiclesAdapter.addOne,
-    // [removeVehicles.fulfilled]: (state, action) => vehiclesAdapter.removeMany(state, action.payload),
-    // [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
+    [updateVehicle.fulfilled]: vehiclesAdapter.upsertOne,
+    [addVehicle.fulfilled]: vehiclesAdapter.addOne,
+    [removeVehicles.fulfilled]: (state, action) => vehiclesAdapter.removeMany(state, action.payload),
+    [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
     [getVehicles.fulfilled]: (state, action) => {
       const { data, routeParams } = action.payload;
       vehiclesAdapter.setAll(state, data);
