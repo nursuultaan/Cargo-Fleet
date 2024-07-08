@@ -5,7 +5,7 @@ import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
-import { selectVehicles } from './store/vehiclesSlice';
+import { selectVehicles, openDeleteVehicleDialog } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
@@ -82,7 +82,8 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(removeContact(row.original.id));
+                dispatch(openDeleteVehicleDialog(row.original.id));
+                //dispatch(removeVehicle(row.original.id));
               }}
             >
               <Icon>delete</Icon>
