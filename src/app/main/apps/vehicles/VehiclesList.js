@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion';
 import FuseUtils from '@fuse/utils';
-import Typography from '@material-ui/core/Typography';
-import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import VehiclesTable from './VehiclesTable';
+import Typography from '@material-ui/core/Typography';
+import { Icon, IconButton } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import CloseIcon from '@material-ui/icons/Close';
+import VehiclesTable from './VehiclesTable';
 import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog, toggleError } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
@@ -94,7 +93,6 @@ function VehiclesList(props) {
               onClick={ev => {
                 ev.stopPropagation();
                 dispatch(openDeleteVehicleDialog(row.original.id));
-                //dispatch(removeVehicle(row.original.id));
               }}
             >
               <Icon>delete</Icon>
