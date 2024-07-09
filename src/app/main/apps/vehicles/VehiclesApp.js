@@ -42,7 +42,7 @@ function VehiclesApp(props) {
         ref={pageLayout}
         innerScroll
       />
-      {/* <VehicleDialog /> */}
+      <VehicleDialog />
       <ConfirmDialog />
     </>
   );
