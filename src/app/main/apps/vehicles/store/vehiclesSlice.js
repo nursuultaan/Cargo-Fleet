@@ -66,8 +66,8 @@ export const removeVehicle = createAsyncThunk(
         throw new Error('The vehicle is not deleted!');
       }
       return vehicleId;
-    } catch {
-      rejectWithValue(error.message);
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );

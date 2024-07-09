@@ -39,8 +39,6 @@ function ConfirmDialog(props) {
     //   dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
     // }
 
-    //console.log('data', data);
-
     dispatch(removeVehicle(confirmDialog.data));
     closeComposeDialog();
   }
@@ -48,11 +46,6 @@ function ConfirmDialog(props) {
   /**
    * Remove Event
    */
-  function handleRemove() {
-    dispatch(removeVehicle(id));
-    closeComposeDialog();
-  }
-
   return (
     <Dialog
       classes={{
