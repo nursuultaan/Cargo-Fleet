@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
 // import VehicleDialog from './VehicleDialog';
+import ConfirmDialog from './ConfirmDialog';
 import VehiclesHeader from './VehiclesHeader';
 import VehiclesList from './VehiclesList';
 // import VehiclesSidebarContent from './VehiclesSidebarContent';
@@ -41,7 +42,8 @@ function VehiclesApp(props) {
         ref={pageLayout}
         innerScroll
       />
-      <VehicleDialog />
+      {/* <VehicleDialog /> */}
+      <ConfirmDialog />
     </>
   );
 }
