@@ -5,7 +5,8 @@ import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
-import { openEditVehicleDialog, selectVehicles } from './store/vehiclesSlice';
+import Alert from '@material-ui/lab/Alert';
+import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function VehiclesList(props) {
   const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
   const store = useSelector(state => state.vehiclesApp);
+  const error = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.error);
 
   const [filteredData, setFilteredData] = useState(null);
 
@@ -124,6 +126,10 @@ function VehiclesList(props) {
         </Typography>
       </div>
     );
+  }
+
+  if (error) {
+    <Alert>Server error!</Alert>;
   }
 
   return (

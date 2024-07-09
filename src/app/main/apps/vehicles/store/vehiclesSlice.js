@@ -1,7 +1,6 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserData } from './userSlice';
-import ConfirmDialog from '../ConfirmDialog';
 
 const VEHICLES_API = 'https://cargofleet-api.fly.dev/team1/api/vehicles';
 const TOKEN = 'Zb84MzAROCrhmF6t';
@@ -162,7 +161,8 @@ const vehiclesSlice = createSlice({
         open: false
       },
       data: null
-    }
+    },
+    error: false
   }),
   reducers: {
     setVehiclesSearchText: {
@@ -231,6 +231,9 @@ const vehiclesSlice = createSlice({
     [addVehicle.fulfilled]: vehiclesAdapter.addOne,
     [removeVehicles.fulfilled]: (state, action) => vehiclesAdapter.removeMany(state, action.payload),
     [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
+    [removeVehicle.rejected]: (state, action) => {
+      state.error = true;
+    },
     [getVehicles.fulfilled]: (state, action) => {
       const { data, routeParams } = action.payload;
       vehiclesAdapter.setAll(state, data);
