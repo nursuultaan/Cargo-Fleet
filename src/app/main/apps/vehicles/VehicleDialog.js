@@ -1,7 +1,6 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,6 +9,8 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -18,39 +19,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import _ from '@lodash';
 import * as yup from 'yup';
 
-// import {
-//   removeVehicle,
-//   updateVehicle,
-//   addVehicle,
-//   closeNewVehicleDialog,
-//   closeEditVehicleDialog
-// } from './store/vehiclesSlice';
+import {
+  removeVehicle,
+  updateVehicle,
+  addVehicle,
+  closeNewVehicleDialog,
+  closeEditVehicleDialog
+} from './store/vehiclesSlice';
+
+function formatDateString(dateString) {
+  try {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    console.error('Date format error.');
+    return '';
+  }
+}
 
 const defaultValues = {
   id: '',
-  name: '',
-  lastName: '',
-  avatar: 'assets/images/avatars/profile.jpg',
-  nickname: '',
-  company: '',
-  jobTitle: '',
-  email: '',
-  phone: '',
-  address: '',
-  birthday: '',
-  notes: ''
+  model: '',
+  manufacture_year: '',
+  image_url: '',
+  plate_number: '',
+  engine_number: '',
+  fuel_type: '',
+  created_at: '',
+  updated_at: '',
+  active: false
 };
 
 /**
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  name: yup.string().required('You must enter a name')
+  model: yup.string().required('You must enter a model'),
+  manufacture_year: yup.string().required('You must enter a manufacture year'),
+  plate_number: yup.string().required('You must enter a plate number'),
+  engine_number: yup.string().required('You must enter an engine number'),
+  fuel_type: yup.string().required('You must enter a fuel type')
 });
 
 function VehicleDialog(props) {
   const dispatch = useDispatch();
   const vehicleDialog = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.vehicleDialog);
+  const { data } = vehicleDialog;
 
   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
     mode: 'onChange',
@@ -61,8 +78,7 @@ function VehicleDialog(props) {
   const { isValid, dirtyFields, errors } = formState;
 
   const id = watch('id');
-  const name = watch('name');
-  const avatar = watch('avatar');
+  const model = watch('model');
 
   /**
    * Initialize Dialog with Data
@@ -106,11 +122,11 @@ function VehicleDialog(props) {
   /**
    * Form Submit
    */
-  function onSubmit(data) {
+  function onSubmit(submitData) {
     if (vehicleDialog.type === 'new') {
-      dispatch(addVehicle(data));
+      dispatch(addVehicle(submitData));
     } else {
-      dispatch(updateVehicle({ ...vehicleDialog.data, ...data }));
+      dispatch(updateVehicle({ ...vehicleDialog.data, ...submitData }));
     }
     closeComposeDialog();
   }
@@ -129,7 +145,6 @@ function VehicleDialog(props) {
         paper: 'm-24'
       }}
       {...vehicleDialog.props}
-      // onClose={closeComposeDialog}
       fullWidth
       maxWidth="xs"
     >
@@ -139,32 +154,24 @@ function VehicleDialog(props) {
             {vehicleDialog.type === 'new' ? 'New Vehicle' : 'Edit Vehicle'}
           </Typography>
         </Toolbar>
-        <div className="flex flex-col items-center justify-center pb-24">
-          <Avatar className="w-96 h-96" alt="vehicle avatar" src={avatar} />
-          {vehicleDialog.type === 'edit' && (
-            <Typography variant="h6" color="inherit" className="pt-8">
-              {name}
-            </Typography>
-          )}
-        </div>
       </AppBar>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:overflow-hidden">
         <DialogContent classes={{ root: 'p-24' }}>
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">account_circle</Icon>
+              <Icon color="action">directions_car</Icon>
             </div>
             <Controller
               control={control}
-              name="name"
+              name="model"
               render={({ field }) => (
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Name"
-                  id="name"
-                  error={!!errors.name}
-                  helperText={errors?.name?.message}
+                  label="Model"
+                  id="model"
+                  error={!!errors.model}
+                  helperText={errors?.model?.message}
                   variant="outlined"
                   required
                   fullWidth
@@ -174,108 +181,24 @@ function VehicleDialog(props) {
           </div>
 
           <div className="flex">
-            <div className="min-w-48 pt-20" />
-
-            <Controller
-              control={control}
-              name="lastName"
-              render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Last name" id="lastName" variant="outlined" fullWidth />
-              )}
-            />
-          </div>
-
-          <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">star</Icon>
+              <Icon color="action">calendar_today</Icon>
             </div>
             <Controller
               control={control}
-              name="nickname"
-              render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Nickname" id="nickname" variant="outlined" fullWidth />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">phone</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="phone"
-              render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Phone" id="phone" variant="outlined" fullWidth />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">email</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Email" id="email" variant="outlined" fullWidth />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">domain</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="company"
-              render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Company" id="company" variant="outlined" fullWidth />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">work</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="jobTitle"
+              name="manufacture_year"
               render={({ field }) => (
                 <TextField
-                  {...field}
+                  defaultValue={data != null ? formatDateString(data.manufacture_year) : ''}
                   className="mb-24"
-                  label="Job title"
-                  id="jobTitle"
-                  name="jobTitle"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">cake</Icon>
-            </div>
-            <Controller
-              control={control}
-              name="birthday"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mb-24"
-                  id="birthday"
-                  label="Birthday"
+                  label="Manufacture Year"
+                  id="manufacture_year"
                   type="date"
-                  InputLabelProps={{
-                    shrink: true
-                  }}
+                  InputLabelProps={{ shrink: true }}
+                  error={!!errors.manufacture_year}
+                  helperText={errors?.manufacture_year?.message}
                   variant="outlined"
+                  required
                   fullWidth
                 />
               )}
@@ -284,35 +207,87 @@ function VehicleDialog(props) {
 
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">home</Icon>
+              <Icon color="action">image</Icon>
             </div>
             <Controller
               control={control}
-              name="address"
+              name="image_url"
               render={({ field }) => (
-                <TextField {...field} className="mb-24" label="Address" id="address" variant="outlined" fullWidth />
+                <TextField {...field} className="mb-24" label="Image URL" id="image_url" variant="outlined" fullWidth />
               )}
             />
           </div>
 
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">note</Icon>
+              <Icon color="action">confirmation_number</Icon>
             </div>
             <Controller
               control={control}
-              name="notes"
+              name="plate_number"
               render={({ field }) => (
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Notes"
-                  id="notes"
+                  label="Plate Number"
+                  id="plate_number"
+                  error={!!errors.plate_number}
+                  helperText={errors?.plate_number?.message}
                   variant="outlined"
-                  multiline
-                  rows={5}
+                  required
                   fullWidth
                 />
+              )}
+            />
+          </div>
+
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">settings</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="engine_number"
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Engine Number"
+                  id="engine_number"
+                  error={!!errors.engine_number}
+                  helperText={errors?.engine_number?.message}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              )}
+            />
+          </div>
+
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">local_gas_station</Icon>
+            </div>
+            <Controller
+              control={control}
+              name="fuel_type"
+              render={({ field }) => (
+                <Select
+                  id="fuel_type"
+                  label="Fuel Type"
+                  error={!!errors.fuel_type}
+                  {...field}
+                  variant="outlined"
+                  helperText={errors?.fuel_type?.message}
+                  placeholder="Fuel type"
+                  className="w-full"
+                  required
+                >
+                  <MenuItem value="natural_gas">Natural Gas</MenuItem>
+                  <MenuItem value="propane">Propane</MenuItem>
+                  <MenuItem value="diesel">Diesel</MenuItem>
+                  <MenuItem value="gasoline">Gasoline</MenuItem>
+                </Select>
               )}
             />
           </div>
@@ -333,8 +308,8 @@ function VehicleDialog(props) {
                 Save
               </Button>
             </div>
-            <IconButton onClick={handleRemove}>
-              <Icon>delete</Icon>
+            <IconButton onClick={() => dispatch(closeNewVehicleDialog())}>
+              <Icon>cancel</Icon>
             </IconButton>
           </DialogActions>
         )}
