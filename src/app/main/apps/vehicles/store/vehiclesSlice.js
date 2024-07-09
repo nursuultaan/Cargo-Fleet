@@ -14,6 +14,16 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
   return response.data;
 });
 
+export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', async (routeParams) => {
+  const response = await axios.get(`${VEHICLES_API}/${routeParams.id}`, {
+    headers: {
+      Authorization: TOKEN
+    }
+  });
+  const data = await response.data;
+  return data;
+})
+
 // export const getVehicles = createAsyncThunk(
 //   'vehicle-list-app/vehicles/getVehicles',
 //   async (routeParams, { getState }) => {
@@ -143,7 +153,8 @@ const vehiclesSlice = createSlice({
         open: false
       },
       data: null
-    }
+    },
+    selectedVehicle: null
   }),
   reducers: {
     setVehiclesSearchText: {
@@ -199,6 +210,14 @@ const vehiclesSlice = createSlice({
       vehiclesAdapter.setAll(state, data);
       state.routeParams = routeParams;
       state.searchText = '';
+    },
+    [getVehicle.fulfilled]: (state, action) => {
+      // vehiclesAdapter.setAll(state, data);
+      // state.routeParams = action.payload.routeParams
+
+      console.log("ACTION.payload", action.payload)
+
+      state.selectedVehicle = action.payload;
     }
   }
 });

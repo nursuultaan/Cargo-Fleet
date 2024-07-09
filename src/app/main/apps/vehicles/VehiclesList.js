@@ -5,17 +5,15 @@ import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
-import { openEditVehicleDialog, selectVehicles } from './store/vehiclesSlice';
-
+import { selectVehicles } from './store/vehiclesSlice';
+import { displayVehicleInfo } from './store/vehiclesSlice';
+import { Link } from 'react-router-dom';
 function VehiclesList(props) {
   const dispatch = useDispatch();
   const vehicles = useSelector(selectVehicles);
   const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
-  const store = useSelector(state => state.vehiclesApp);
-
   const [filteredData, setFilteredData] = useState(null);
-
   const columns = useMemo(
     () => [
       {
@@ -64,20 +62,15 @@ function VehiclesList(props) {
         sortable: false,
         Cell: ({ row }) => (
           <div className="flex items-center">
+            <Link to={`/apps/vehicleInfo/${row.original.id}`}>
+              <IconButton>
+                <Icon>info</Icon>
+              </IconButton>
+            </Link>
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(moreInfo(row.original.id));
-              }}
-            >
-              <Icon>info</Icon>
-            </IconButton>
-            <IconButton
-              onClick={ev => {
-                ev.stopPropagation();
-                console.log('Edit');
-                console.log(row.original);
-                dispatch(openEditVehicleDialog(row.original));
+                // dispatch(editContact(row.original.id));
               }}
             >
               <Icon>edit</Icon>
@@ -85,6 +78,7 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
+                // dispatch(removeContact(row.original.id));
               }}
             >
               <Icon>delete</Icon>
@@ -96,7 +90,6 @@ function VehiclesList(props) {
     // eslint-disable-next-line
     [dispatch, vehicles]
   );
-
   useEffect(() => {
     function getFilteredArray(entities, _searchText) {
       if (_searchText.length === 0) {
@@ -104,16 +97,13 @@ function VehiclesList(props) {
       }
       return FuseUtils.filterArrayByString(vehicles, _searchText);
     }
-
     if (vehicles) {
       setFilteredData(getFilteredArray(vehicles, searchText));
     }
   }, [vehicles, searchText]);
-
   if (!filteredData) {
     return null;
   }
-
   if (filteredData.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center h-full">
@@ -123,12 +113,10 @@ function VehiclesList(props) {
       </div>
     );
   }
-
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
       <VehiclesTable columns={columns} data={filteredData} />
     </motion.div>
   );
 }
-
 export default VehiclesList;
