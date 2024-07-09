@@ -5,8 +5,10 @@ import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import VehiclesTable from './VehiclesTable';
+import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog } from './store/vehiclesSlice';
+import CloseIcon from '@material-ui/icons/Close';
+import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog, toggleError } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
@@ -15,6 +17,10 @@ function VehiclesList(props) {
   // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
   const store = useSelector(state => state.vehiclesApp);
   const error = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.error);
+
+  const handleClose = () => {
+    dispatch(toggleError());
+  };
 
   const [filteredData, setFilteredData] = useState(null);
 
@@ -128,12 +134,21 @@ function VehiclesList(props) {
     );
   }
 
-  if (error) {
-    <Alert>Server error!</Alert>;
-  }
-
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        open={error}
+        autoHideDuration={1000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+          Server error!
+        </Alert>
+      </Snackbar>
       <VehiclesTable columns={columns} data={filteredData} />
     </motion.div>
   );

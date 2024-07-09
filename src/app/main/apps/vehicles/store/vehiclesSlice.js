@@ -224,6 +224,9 @@ const vehiclesSlice = createSlice({
         },
         data: action.payload
       };
+    },
+    toggleError: (state, action) => {
+      state.error = !state.error;
     }
   },
   extraReducers: {
@@ -250,7 +253,8 @@ export const {
   openEditVehicleDialog,
   closeEditVehicleDialog,
   openDeleteVehicleDialog,
-  closeDeleteVehicleDialog
+  closeDeleteVehicleDialog,
+  toggleError
 } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;
