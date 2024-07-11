@@ -14,16 +14,27 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
   return response.data;
 });
 
-export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', async (routeParams) => {
-  const response = await axios.get(`${VEHICLES_API}/${routeParams.id}`, {
+// export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', async routeParams => {
+//   const response = await axios.get(`${VEHICLES_API}/${id}`, {
+//     headers: {
+//       Authorization: TOKEN
+//     }
+//   });
+
+//   const data = await response.data;
+//   console.log('Vehicle data:', data);
+//   return data;
+// });
+
+export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', async ({ id }) => {
+  const response = await axios.get(`${VEHICLES_API}/${id}`, {
     headers: {
       Authorization: TOKEN
     }
   });
-  const data = await response.data;
-  return data;
-})
-
+  console.log('Vehicle data:', response.data); // Add this line
+  return response.data;
+});
 // export const getVehicles = createAsyncThunk(
 //   'vehicle-list-app/vehicles/getVehicles',
 //   async (routeParams, { getState }) => {
@@ -156,6 +167,7 @@ const vehiclesSlice = createSlice({
     },
     selectedVehicle: null
   }),
+
   reducers: {
     setVehiclesSearchText: {
       reducer: (state, action) => {
@@ -211,17 +223,18 @@ const vehiclesSlice = createSlice({
       state.routeParams = routeParams;
       state.searchText = '';
     },
+
     [getVehicle.fulfilled]: (state, action) => {
       // vehiclesAdapter.setAll(state, data);
-      // state.routeParams = action.payload.routeParams
+      state.routeParams = action.payload.routeParams;
 
-      console.log("ACTION.payload", action.payload)
+      console.log('ACTION.payload');
 
       state.selectedVehicle = action.payload;
     }
   }
 });
-
+export const vehicleInfo = state => state.vehiclesApp?.vehicles.selectedVehicle;
 export const {
   setVehiclesSearchText,
   openNewVehicleDialog,
