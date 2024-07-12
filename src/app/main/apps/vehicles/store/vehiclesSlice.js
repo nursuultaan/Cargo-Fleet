@@ -30,7 +30,11 @@ export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicl
 export const addVehicle = createAsyncThunk(
   'vehiclesApp/vehicles/addVehicle',
   async (vehicle, { dispatch, getState }) => {
-    const response = await axios.post('/api/vehicles-app/add-vehicle', { vehicle });
+    const response = await axios.post(VEHICLES_API, vehicle, {
+      headers: {
+        Authorization: TOKEN
+      }
+      });
     const data = await response.data;
 
     dispatch(getVehicles());
