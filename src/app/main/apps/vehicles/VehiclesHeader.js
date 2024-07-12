@@ -5,11 +5,11 @@ import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { openNewVehicleDialog, setVehiclesSearchText } from './store/vehiclesSlice';
-import Button from '@material-ui/core/Button';
 
 function VehiclesHeader(props) {
   const dispatch = useDispatch();
