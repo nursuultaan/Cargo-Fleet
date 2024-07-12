@@ -1,17 +1,25 @@
 import { motion } from 'framer-motion';
 import FuseUtils from '@fuse/utils';
-import Typography from '@material-ui/core/Typography';
-import { Icon, IconButton } from '@material-ui/core';
 import { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import { Icon, IconButton } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import VehiclesTable from './VehiclesTable';
-import { selectVehicles } from './store/vehiclesSlice';
+import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog, toggleError } from './store/vehiclesSlice';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();
   const vehicles = useSelector(selectVehicles);
   const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   // const user = useSelector(({ vehiclesApp }) => vehiclesApp.user);
+  const store = useSelector(state => state.vehiclesApp);
+  const error = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.error);
+
+  const handleClose = () => {
+    dispatch(toggleError());
+  };
 
   const [filteredData, setFilteredData] = useState(null);
 
@@ -74,7 +82,9 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(editContact(row.original.id));
+                console.log('Edit');
+                console.log(row.original);
+                dispatch(openEditVehicleDialog(row.original));
               }}
             >
               <Icon>edit</Icon>
@@ -82,7 +92,7 @@ function VehiclesList(props) {
             <IconButton
               onClick={ev => {
                 ev.stopPropagation();
-                // dispatch(removeContact(row.original.id));
+                dispatch(openDeleteVehicleDialog(row.original.id));
               }}
             >
               <Icon>delete</Icon>
@@ -124,6 +134,19 @@ function VehiclesList(props) {
 
   return (
     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        open={error}
+        autoHideDuration={1000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+          Server error!
+        </Alert>
+      </Snackbar>
       <VehiclesTable columns={columns} data={filteredData} />
     </motion.div>
   );
