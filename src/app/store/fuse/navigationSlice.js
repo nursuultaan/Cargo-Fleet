@@ -28,7 +28,6 @@ export const updateNavigationItem = (id, item) => (dispatch, getState) => {
 
 export const removeNavigationItem = id => (dispatch, getState) => {
   const navigation = selectNavigationAll(getState());
-
   return dispatch(setNavigation(FuseUtils.removeNavItem(navigation, id)));
 };
 
