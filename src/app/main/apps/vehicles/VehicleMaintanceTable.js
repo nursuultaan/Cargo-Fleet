@@ -8,6 +8,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 
+const formatDate = dateString => {
+  const date = new Date(dateString);
+  const options = {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  };
+  return date.toLocaleDateString('en-US', options);
+};
 export default function VehicleMaintanceTable({ issues }) {
   return (
     <TableContainer component={Paper}>
@@ -27,7 +36,7 @@ export default function VehicleMaintanceTable({ issues }) {
             <TableRow key={issue.id}>
               <TableCell>{issue.description}</TableCell>
               <TableCell align="right">{issue.priority}</TableCell>
-              <TableCell align="right">{issue.due_date}</TableCell>
+              <TableCell align="right">{formatDate(issue.due_date)}</TableCell>
               <TableCell align="right">
                 {' '}
                 <Checkbox checked={issue.comleted} />

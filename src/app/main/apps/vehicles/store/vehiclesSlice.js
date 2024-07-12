@@ -32,7 +32,6 @@ export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', as
       Authorization: TOKEN
     }
   });
-  console.log('Vehicle data:', response.data); // Add this line
   return response.data;
 });
 // export const getVehicles = createAsyncThunk(
@@ -227,8 +226,6 @@ const vehiclesSlice = createSlice({
     [getVehicle.fulfilled]: (state, action) => {
       // vehiclesAdapter.setAll(state, data);
       state.routeParams = action.payload.routeParams;
-
-      console.log('ACTION.payload');
 
       state.selectedVehicle = action.payload;
     }

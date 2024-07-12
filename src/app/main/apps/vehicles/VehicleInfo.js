@@ -9,7 +9,6 @@ import '../../../../styles/vehicle-info.css';
 function VehicleInfo() {
   // const vehicles = useSelector(state => state.vehiclesApp.vehicles.vehicleDialog.selectedRow);
   const vehicles = useSelector(vehicleInfo);
-  console.log('data>>', vehicles && vehicles);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -42,6 +41,7 @@ function VehicleInfo() {
               <h3 className="text-info">Manufacture year: {vehicles.manufacture_year}</h3>
               <h3 className="text-info">Fuel type: {vehicles.fuel_type}</h3>
             </div>
+
             <div className="img-info">
               <img src={vehicles.image_url} alt="no image"></img>
             </div>
