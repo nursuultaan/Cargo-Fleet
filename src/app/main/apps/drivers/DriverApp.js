@@ -5,7 +5,6 @@ const DriverApp = () => {
   return (
     <div>
       <DriversTable/>
-
     </div>
   );
 };

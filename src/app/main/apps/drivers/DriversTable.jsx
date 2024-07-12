@@ -1,61 +1,51 @@
+import React, { useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getDriversData } from './store/DriversSlice';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete'; // Adjust import path as needed
 
 const columns = [
-  { field: 'id', headerName: 'ID', flex: 1, headerAlign: 'center', align: 'center' },
-  { field: 'firstName', headerName: 'First name', flex: 1, headerAlign: 'center', align: 'center' },
-  { field: 'lastName', headerName: 'Last name', flex: 1, headerAlign: 'center', align: 'center' },
+  { field: 'email', headerName: 'Email', flex: 1, headerAlign: 'center', align: 'center' },
+  { field: 'first_name', headerName: 'Full Name', flex: 1, headerAlign: 'center', align: 'center' },
+  { field: 'phone_number', headerName: 'Phone Number', flex: 1, headerAlign: 'center', align: 'center' },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
+    field: 'actions',
+    headerName: 'Actions',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
-  },
-];
+    renderCell: params => (
+      <>
+        <IconButton onClick={() => {}}>
+          <EditIcon />
+        </IconButton>
 
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+        <IconButton onClick={() => {}}>
+          <DeleteIcon />
+        </IconButton>
+      </>
+    )
+  }
 ];
 
 const DriversTable = () => {
-  const [driversData, setDriversData] = useState(null);
-  // useEffect(async ()=>{
-  //
-  //   function getDriversData(){
-  //     const drivers = axios.get("http://localhost:3000/")
-  //   }
-  //
-  // },[]);
+  const dispatch = useDispatch();
+  const driversData = useSelector(state => state.driverAppReducer.data);
+
+  useEffect(() => {
+    dispatch(getDriversData());
+  }, [dispatch]);
 
 
   return (
-    <section className="h-full w-full p-10" style={{ height: '100vh' }} >
-      <div style={{ height: '80%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
-      </div>
+    <section className="h-full w-full p-10" style={{ height: '100vh' }}>
+      {driversData && (
+        <div style={{ height: '80%' }}>
+          <DataGrid rows={driversData} columns={columns} pageSize={20} pageSizeOptions={[5, 10]} />
+        </div>
+      )}
     </section>
   );
 };
