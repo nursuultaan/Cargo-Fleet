@@ -189,6 +189,7 @@ function VehicleDialog(props) {
               name="manufacture_year"
               render={({ field }) => (
                 <TextField
+                  {...field}
                   defaultValue={data != null ? formatDateString(data.manufacture_year) : ''}
                   className="mb-24"
                   label="Manufacture Year"
