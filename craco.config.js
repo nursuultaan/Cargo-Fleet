@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 module.exports = {
   style: {
     postcss: {
-      plugins: [require('tailwindcss'), require('autoprefixer')]
+      plugins: [require('@tailwindcss/postcss7-compat'), require('autoprefixer')]
     }
   },
   webpack: {
