@@ -36,9 +36,9 @@ function FuseNavVerticalLayout1(props) {
   const { navigation, layout, active, dense, className, onItemClick } = props;
   const dispatch = useDispatch();
 
-  function handleItemClick(item) {
+  const handleItemClick = item => {
     onItemClick && onItemClick(item);
-  }
+  };
 
   return (
     <List

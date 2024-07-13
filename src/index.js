@@ -14,14 +14,6 @@ import App from 'app/App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-// react 18 upgrade
-
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(<App />);

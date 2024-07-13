@@ -43,9 +43,9 @@ function MailToolbar(props) {
     });
   }
 
-  function handleCheckChange(event) {
+  const handleCheckChange = event => {
     return event.target.checked ? dispatch(selectAllMails()) : dispatch(deselectAllMails());
-  }
+  };
 
   return (
     <div className="flex flex-1 items-center sm:px-8">

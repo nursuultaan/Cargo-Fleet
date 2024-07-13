@@ -16,9 +16,9 @@ function MailAppSidebarHeader(props) {
   const [selectedAccount, setSelectedCount] = useState('creapond');
   const { t } = useTranslation('mailApp');
 
-  function handleAccountChange(ev) {
+  const handleAccountChange = ev => {
     setSelectedCount(ev.target.value);
-  }
+  };
 
   return (
     <div className="flex flex-col justify-center h-full p-24">

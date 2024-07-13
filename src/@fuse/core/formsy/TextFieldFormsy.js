@@ -38,12 +38,12 @@ function TextFieldFormsy(props) {
   const { errorMessage } = props;
   const value = props.value || '';
 
-  function changeValue(event) {
+  const changeValue = event => {
     props.setValue(event.currentTarget.value);
     if (props.onChange) {
       props.onChange(event);
     }
-  }
+  };
 
   return (
     <TextField

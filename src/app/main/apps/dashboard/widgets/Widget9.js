@@ -12,9 +12,9 @@ function Widget9(props) {
   const widget = _.merge({}, props.widget);
   const theme = useTheme();
 
-  function handleChangeRange(ev) {
+  const handleChangeRange = ev => {
     setCurrentRange(ev.target.value);
-  }
+  };
 
   return (
     <Paper className="w-full rounded-20 shadow">

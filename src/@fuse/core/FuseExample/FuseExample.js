@@ -22,9 +22,9 @@ function FuseExample(props) {
   const [currentTab, setCurrentTab] = useState(props.currentTabIndex);
   const { component: Component, raw, iframe, className } = props;
 
-  function handleChange(event, value) {
+  const handleChange = (event, value) => {
     setCurrentTab(value);
-  }
+  };
 
   return (
     <Card className={clsx(className, 'shadow')}>

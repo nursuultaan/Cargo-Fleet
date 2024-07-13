@@ -4,15 +4,12 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
-//import VehicleDialog from './VehicleDialog';
 import ConfirmDialog from './ConfirmDialog';
 import VehiclesHeader from './VehiclesHeader';
 import VehiclesList from './VehiclesList';
-// import VehiclesSidebarContent from './VehiclesSidebarContent';
 import reducer from './store';
 import { getVehicles } from './store/vehiclesSlice';
 import VehicleDialog from './VehicleDialog';
-// import { getUserData } from './store/userSlice';
 
 function VehiclesApp(props) {
   const dispatch = useDispatch();

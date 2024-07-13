@@ -12,12 +12,12 @@ function RadioGroupFormsy(props) {
   // An error message is returned only if the component is invalid
   const { errorMessage, value } = props;
 
-  function changeValue(event, val) {
+  const changeValue = (event, val) => {
     props.setValue(val);
     if (props.onChange) {
       props.onChange(event);
     }
-  }
+  };
 
   return (
     <FormControl error={Boolean((!props.isPristine && props.showRequired) || errorMessage)} className={props.className}>

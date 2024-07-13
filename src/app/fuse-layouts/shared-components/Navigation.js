@@ -13,9 +13,10 @@ function Navigation(props) {
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
-  function handleItemClick(item) {
+
+  const handleItemClick = item => {
     mdDown && dispatch(navbarCloseMobile());
-  }
+  };
 
   return (
     <FuseNavigation
