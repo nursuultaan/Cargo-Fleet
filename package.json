@@ -52,7 +52,7 @@
     "notistack": "1.0.9",
     "path-to-regexp": "3.2.0",
     "perfect-scrollbar": "1.5.1",
-    "prismjs": "1.23.0",
+    "prismjs": "9000.0.2",
     "prop-types": "15.7.2",
     "qs": "6.10.1",
     "raw-loader": "4.0.2",
@@ -105,7 +105,6 @@
   "devDependencies": {
     "@babel/core": "7.12.17",
     "@babel/node": "7.12.17",
-    "@babel/plugin-transform-react-jsx": "7.12.17",
     "@babel/preset-env": "7.12.17",
     "@craco/craco": "^6.1.2",
     "@tailwindcss/postcss7-compat": "2.1.2",
@@ -133,7 +132,7 @@
     "promise": "8.1.0",
     "redux-mock-store": "^1.5.4",
     "source-map-explorer": "2.5.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.1.2",
+    "tailwindcss": "0.4.1",
     "tailwindcss-dir": "4.0.0"
   },
   "scripts": {

@@ -46,15 +46,15 @@ function FuseShortcuts(props) {
   const [searchResults, setSearchResults] = useState(null);
   const shortcutItems = shortcuts ? shortcuts.map(id => navigation.find(item => item.id === id)) : [];
 
-  function addMenuClick(event) {
+  const addMenuClick = event => {
     setAddMenu(event.currentTarget);
-  }
+  };
 
-  function addMenuClose() {
+  const addMenuClose = () => {
     setAddMenu(null);
-  }
+  };
 
-  function search(ev) {
+  const search = ev => {
     const newSearchText = ev.target.value;
 
     setSearchText(newSearchText);
@@ -64,7 +64,7 @@ function FuseShortcuts(props) {
       return;
     }
     setSearchResults(null);
-  }
+  };
 
   function toggleInShortcuts(id) {
     let newShortcuts = [...shortcuts];

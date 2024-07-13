@@ -34,13 +34,13 @@ function FuseChipSelectFormsy(props) {
   // An error message is returned only if the component is invalid
   const { errorMessage, value } = props;
 
-  function changeValue(val, selectedOptions) {
+  const changeValue = (val, selectedOptions) => {
     if (props.multiple) {
       props.setValue(selectedOptions.map(option => option.value));
     } else {
       props.setValue(val);
     }
-  }
+  };
 
   return (
     <FormControl

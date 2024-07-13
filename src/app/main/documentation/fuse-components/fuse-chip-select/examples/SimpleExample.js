@@ -23,9 +23,9 @@ function SimpleExample() {
     }
   ]);
 
-  function handleChipChange(value) {
+  const handleChipChange = value => {
     setTags(value);
-  }
+  };
 
   return (
     <div className="w-full max-w-sm pt-64 pb-224">

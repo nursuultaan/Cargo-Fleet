@@ -129,12 +129,12 @@ function KnowledgeBasePage() {
       </div>
 
       {useMemo(() => {
-        function handleCloseDialog() {
+        const handleCloseDialog = () => {
           setDialog({
             ...dialog,
             open: false
           });
-        }
+        };
 
         return (
           <Dialog

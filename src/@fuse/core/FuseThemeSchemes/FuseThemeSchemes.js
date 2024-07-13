@@ -82,7 +82,7 @@ function FuseThemeSchemes(props) {
 
   const classes = useStyles(props);
 
-  function handleSchemeSelect(themeId) {
+  const handleSchemeSelect = themeId => {
     const newSettings = {
       ...settings,
       theme: {
@@ -98,7 +98,7 @@ function FuseThemeSchemes(props) {
     } else {
       dispatch(updateUserSettings(newSettings));
     }
-  }
+  };
 
   return (
     <div className={classes.root}>

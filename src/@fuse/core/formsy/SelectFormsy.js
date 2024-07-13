@@ -45,12 +45,12 @@ function SelectFormsy(props) {
     }
   }
 
-  function changeValue(event) {
+  const changeValue = event => {
     props.setValue(event.target.value);
     if (props.onChange) {
       props.onChange(event);
     }
-  }
+  };
 
   return (
     <FormControl

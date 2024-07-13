@@ -296,7 +296,7 @@ function VehicleDialog(props) {
 
         {vehicleDialog.type === 'new' ? (
           <DialogActions className="justify-between p-4 pb-16">
-            <div className="px-16" >
+            <div className="px-16">
               <Button variant="contained" color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
                 Add
               </Button>

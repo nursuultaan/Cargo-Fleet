@@ -67,13 +67,13 @@ const HeaderFullScreenToggle = props => {
     }
   }
 
-  function toggleFullScreen() {
+  const toggleFullScreen = () => {
     if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
       closeFullscreen();
     } else {
       openFullscreen();
     }
-  }
+  };
 
   return (
     <Tooltip title="Fullscreen toggle" placement="bottom">
