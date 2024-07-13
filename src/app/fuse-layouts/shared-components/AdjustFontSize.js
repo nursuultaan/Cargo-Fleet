@@ -41,10 +41,10 @@ function AdjustFontSize(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [fontSize, setFontSize] = useState(1);
 
-  function changeHtmlFontSize() {
+  const changeHtmlFontSize = () => {
     const html = document.getElementsByTagName('html')[0];
     html.style.fontSize = `${fontSize * 62.5}%`;
-  }
+  };
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);

@@ -9,9 +9,9 @@ function Widget2({ widget }) {
   const keyOfObj = Object.keys(widget);
   const [currentRange, setCurrentRange] = useState(keyOfObj[1]);
 
-  function handleChangeRange(ev) {
+  const handleChangeRange = ev => {
     setCurrentRange(ev.target.value);
-  }
+  };
 
   return (
     <Paper className="w-full rounded-20 shadow flex flex-col justify-start">

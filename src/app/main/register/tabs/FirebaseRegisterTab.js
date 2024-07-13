@@ -61,9 +61,9 @@ function FirebaseRegisterTab(props) {
     dispatch(registerWithFirebase(model));
   }
 
-  function handleShowPassword() {
+  const handleShowPassword = () => {
     setIsPasswordVisible(prev => !prev);
-  }
+  };
 
   return (
     <div className="w-full">

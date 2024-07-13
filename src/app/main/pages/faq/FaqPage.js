@@ -64,9 +64,9 @@ function FaqPage() {
     setExpanded(_expanded ? panel : false);
   };
 
-  function handleSearch(event) {
+  const handleSearch = event => {
     setSearchText(event.target.value);
-  }
+  };
 
   return (
     <div className="w-full flex flex-col flex-auto">

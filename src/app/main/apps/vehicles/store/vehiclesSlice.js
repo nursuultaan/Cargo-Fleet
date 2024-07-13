@@ -34,7 +34,7 @@ export const addVehicle = createAsyncThunk(
       headers: {
         Authorization: TOKEN
       }
-      });
+    });
     const data = await response.data;
 
     dispatch(getVehicles());

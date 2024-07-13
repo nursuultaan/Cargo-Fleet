@@ -24,9 +24,9 @@ function ConfirmDialog(props) {
   /**
    * Close Dialog
    */
-  function closeComposeDialog() {
+  const closeComposeDialog = () => {
     dispatch(closeDeleteVehicleDialog());
-  }
+  };
 
   /**
    * Form Submit

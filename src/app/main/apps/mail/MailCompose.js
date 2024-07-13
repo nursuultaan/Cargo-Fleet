@@ -43,22 +43,22 @@ function MailCompose() {
 
   const { t } = useTranslation('mailApp');
 
-  function handleOpenDialog() {
+  const handleOpenDialog = () => {
     setOpenDialog(true);
-  }
+  };
 
-  function handleCloseDialog() {
+  const handleCloseDialog = () => {
     setOpenDialog(false);
-  }
+  };
 
-  function handleDelete() {
+  const handleDelete = () => {
     setOpenDialog(false);
-  }
+  };
 
-  function onSubmit(data) {
+  const onSubmit = data => {
     console.info(data);
     setOpenDialog(false);
-  }
+  };
 
   return (
     <div className="p-24 pb-8">

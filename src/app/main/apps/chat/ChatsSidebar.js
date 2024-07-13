@@ -55,21 +55,21 @@ function ChatsSidebar(props) {
   const [statusMenuEl, setStatusMenuEl] = useState(null);
   const [moreMenuEl, setMoreMenuEl] = useState(null);
 
-  function handleMoreMenuClick(event) {
+  const handleMoreMenuClick = event => {
     setMoreMenuEl(event.currentTarget);
-  }
+  };
 
-  function handleMoreMenuClose(event) {
+  const handleMoreMenuClose = event => {
     setMoreMenuEl(null);
-  }
+  };
 
-  function handleStatusMenuClick(event) {
+  const handleStatusMenuClick = event => {
     event.preventDefault();
     event.stopPropagation();
     setStatusMenuEl(event.currentTarget);
-  }
+  };
 
-  function handleStatusSelect(event, status) {
+  const handleStatusSelect = (event, status) => {
     event.preventDefault();
     event.stopPropagation();
     dispatch(
@@ -79,17 +79,17 @@ function ChatsSidebar(props) {
       })
     );
     setStatusMenuEl(null);
-  }
+  };
 
-  function handleStatusClose(event) {
+  const handleStatusClose = event => {
     event.preventDefault();
     event.stopPropagation();
     setStatusMenuEl(null);
-  }
+  };
 
-  function handleSearchText(event) {
+  const handleSearchText = event => {
     setSearchText(event.target.value);
-  }
+  };
 
   return (
     <div className="flex flex-col flex-auto h-full">
@@ -109,6 +109,7 @@ function ChatsSidebar(props) {
               <div
                 className="absolute right-0 bottom-0 -m-4 z-10 cursor-pointer"
                 aria-owns={statusMenuEl ? 'switch-menu' : null}
+                aria-label="Open status menu"
                 aria-haspopup="true"
                 onClick={handleStatusMenuClick}
                 onKeyDown={handleStatusMenuClick}
