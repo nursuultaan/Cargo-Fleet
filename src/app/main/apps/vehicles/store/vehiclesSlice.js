@@ -50,7 +50,11 @@ export const getVehicle = createAsyncThunk('vehiclesApp/vehicles/getVehicle', as
 export const addVehicle = createAsyncThunk(
   'vehiclesApp/vehicles/addVehicle',
   async (vehicle, { dispatch, getState }) => {
-    const response = await axios.post('/api/vehicles-app/add-vehicle', { vehicle });
+    const response = await axios.post(VEHICLES_API, vehicle, {
+      headers: {
+        Authorization: TOKEN
+      }
+    });
     const data = await response.data;
 
     dispatch(getVehicles());
@@ -74,10 +78,21 @@ export const updateVehicle = createAsyncThunk('vehiclesApp/vehicles/updateVehicl
 
 export const removeVehicle = createAsyncThunk(
   'vehiclesApp/vehicles/removeVehicle',
-  async (vehicleId, { dispatch, getState }) => {
-    await axios.post('/api/vehicles-app/remove-vehicle', { vehicleId });
+  async (vehicleId, { dispatch, getState, rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`${VEHICLES_API}/${vehicleId}`, {
+        headers: {
+          Authorization: TOKEN
+        }
+      });
 
-    return vehicleId;
+      if (response.status !== 204) {
+        throw new Error('The vehicle is not deleted!');
+      }
+      return vehicleId;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -121,7 +136,7 @@ export const toggleStarredVehicle = createAsyncThunk(
 // export const setVehiclesStarred = createAsyncThunk(
 //   'vehiclesApp/vehicles/setVehiclesStarred',
 //   async (vehicleIds, { dispatch, getState }) => {
-//     const response = await axios.post('/api/vehicles-app/set-vehicles-starred', { vehicleIds });
+//     const response = await axios.post('/api/vehicles-app/ets-vehicles-starred', { vehicleIds });
 //     const data = await response.data;
 //
 //     dispatch(getUserData());
@@ -209,6 +224,27 @@ const vehiclesSlice = createSlice({
         },
         data: null
       };
+    },
+    openDeleteVehicleDialog: (state, action) => {
+      state.confirmDialog = {
+        type: 'delete',
+        props: {
+          open: true
+        },
+        data: action.payload
+      };
+    },
+    closeDeleteVehicleDialog: (state, action) => {
+      state.confirmDialog = {
+        type: 'delete',
+        props: {
+          open: false
+        },
+        data: action.payload
+      };
+    },
+    toggleError: (state, action) => {
+      state.error = !state.error;
     }
   },
   extraReducers: {
@@ -216,6 +252,9 @@ const vehiclesSlice = createSlice({
     [addVehicle.fulfilled]: vehiclesAdapter.addOne,
     [removeVehicles.fulfilled]: (state, action) => vehiclesAdapter.removeMany(state, action.payload),
     [removeVehicle.fulfilled]: (state, action) => vehiclesAdapter.removeOne(state, action.payload),
+    [removeVehicle.rejected]: (state, action) => {
+      state.error = true;
+    },
     [getVehicles.fulfilled]: (state, action) => {
       const { data, routeParams } = action.payload;
       vehiclesAdapter.setAll(state, data);
@@ -237,7 +276,10 @@ export const {
   openNewVehicleDialog,
   closeNewVehicleDialog,
   openEditVehicleDialog,
-  closeEditVehicleDialog
+  closeEditVehicleDialog,
+  openDeleteVehicleDialog,
+  closeDeleteVehicleDialog,
+  toggleError
 } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;

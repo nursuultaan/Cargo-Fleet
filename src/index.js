@@ -1,7 +1,8 @@
 // Internet Explorer 11 requires polyfills and partially supported by this project.
 // import 'react-app-polyfill/ie11';
 // import 'react-app-polyfill/stable';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import React from 'react';
 import 'typeface-poppins';
 import './i18n';
@@ -12,14 +13,10 @@ import './styles/app-utilities.css';
 import App from 'app/App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
-// Test
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App />);
 
 reportWebVitals();
 

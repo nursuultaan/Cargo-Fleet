@@ -5,10 +5,11 @@ import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { setVehiclesSearchText } from './store/vehiclesSlice';
+import { openNewVehicleDialog, setVehiclesSearchText } from './store/vehiclesSlice';
 
 function VehiclesHeader(props) {
   const dispatch = useDispatch();
@@ -52,12 +53,16 @@ function VehiclesHeader(props) {
 
       <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
         <ThemeProvider theme={mainTheme}>
+          <Button variant="contained" color="success"  className="flex flex-2 m-16" onClick={() => dispatch(openNewVehicleDialog())}>
+              Add New Vehicle
+          </Button>
           <Paper
             component={motion.div}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
             className="flex p-4 items-center w-full max-w-512 h-48 px-16 py-4 shadow"
           >
+           
             <Icon color="action">search</Icon>
 
             <Input
