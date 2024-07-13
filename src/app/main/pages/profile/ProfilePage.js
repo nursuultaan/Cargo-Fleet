@@ -37,9 +37,9 @@ function ProfilePage() {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
-  function handleTabChange(event, value) {
+  const handleTabChange = (event, value) => {
     setSelectedTab(value);
-  }
+  };
 
   return (
     <FusePageSimple

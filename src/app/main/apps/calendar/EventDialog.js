@@ -88,9 +88,9 @@ function EventDialog(props) {
   /**
    * Close Dialog
    */
-  function closeComposeDialog() {
+  const closeComposeDialog = () => {
     return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
-  }
+  };
 
   /**
    * Form Submit
@@ -107,10 +107,10 @@ function EventDialog(props) {
   /**
    * Remove Event
    */
-  function handleRemove() {
+  const handleRemove = () => {
     dispatch(removeEvent(id));
     closeComposeDialog();
-  }
+  };
 
   return (
     <Dialog {...eventDialog.props} onClose={closeComposeDialog} fullWidth maxWidth="xs" component="form">

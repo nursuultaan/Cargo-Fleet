@@ -129,9 +129,9 @@ function Chat(props) {
     return i === chat.dialog.length - 1 || (chat.dialog[i + 1] && chat.dialog[i + 1].who !== item.who);
   }
 
-  function onInputChange(ev) {
+  const onInputChange = ev => {
     setMessageText(ev.target.value);
-  }
+  };
 
   function onMessageSubmit(ev) {
     ev.preventDefault();

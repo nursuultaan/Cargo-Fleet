@@ -41,9 +41,9 @@ function IconsUI() {
     );
   }, [data, searchText]);
 
-  function handleSearch(event) {
+  const handleSearch = event => {
     setSearchText(event.target.value);
-  }
+  };
 
   return (
     <FusePageSimple

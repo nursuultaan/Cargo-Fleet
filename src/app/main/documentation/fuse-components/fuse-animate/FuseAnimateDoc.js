@@ -72,9 +72,9 @@ function FuseAnimateDoc() {
     };
   });
 
-  function handleChange(event) {
+  const handleChange = event => {
     setSelectedEffect(event.target.value);
-  }
+  };
 
   return (
     <>

@@ -53,8 +53,13 @@ function VehiclesHeader(props) {
 
       <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
         <ThemeProvider theme={mainTheme}>
-          <Button variant="contained" color="success"  className="flex flex-2 m-16" onClick={() => dispatch(openNewVehicleDialog())}>
-              Add New Vehicle
+          <Button
+            variant="contained"
+            color="success"
+            className="flex flex-2 m-16"
+            onClick={() => dispatch(openNewVehicleDialog())}
+          >
+            Add New Vehicle
           </Button>
           <Paper
             component={motion.div}
@@ -62,7 +67,6 @@ function VehiclesHeader(props) {
             animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
             className="flex p-4 items-center w-full max-w-512 h-48 px-16 py-4 shadow"
           >
-           
             <Icon color="action">search</Icon>
 
             <Input
