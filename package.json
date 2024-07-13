@@ -52,7 +52,7 @@
     "notistack": "1.0.9",
     "path-to-regexp": "3.2.0",
     "perfect-scrollbar": "1.5.1",
-    "prismjs": "9000.0.2",
+    "prismjs": "1.23.0",
     "prop-types": "15.7.2",
     "qs": "6.10.1",
     "raw-loader": "4.0.2",
