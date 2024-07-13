@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDriversData } from './store/DriversSlice';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete'; // Adjust import path as needed
+import DeleteIcon from '@material-ui/icons/Delete';
+import { getDriversData } from './store/DriversSlice';
 
 const columns = [
   { field: 'email', headerName: 'Email', flex: 1, headerAlign: 'center', align: 'center' },
@@ -37,8 +37,6 @@ const DriversTable = () => {
   useEffect(() => {
     dispatch(getDriversData());
   }, [dispatch]);
-
-
   return (
     <section className="h-full w-full p-10" style={{ height: '100vh' }}>
       {driversData && (

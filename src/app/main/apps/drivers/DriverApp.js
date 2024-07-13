@@ -4,7 +4,7 @@ import DriversTable from './DriversTable';
 const DriverApp = () => {
   return (
     <div>
-      <DriversTable/>
+      <DriversTable />
     </div>
   );
 };

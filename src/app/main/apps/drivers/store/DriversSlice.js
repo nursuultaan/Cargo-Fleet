@@ -17,7 +17,7 @@ export const getDriversData = createAsyncThunk('vehiclesApp/drivers/getDriversDa
 
 const driversSlice = createSlice({
   name: 'vehiclesApp/drivers',
-  initialState: { data: [],error:null },
+  initialState: { error: null, data: [] },
   reducers: {},
   extraReducers: {
     [getDriversData.fulfilled]: (state, action) => {
