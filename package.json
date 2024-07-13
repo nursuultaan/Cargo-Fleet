@@ -139,7 +139,7 @@
   },
   "scripts": {
     "start": "craco --openssl-legacy-provider start",
-    "build": "cross-env GENERATE_SOURCEMAP=false craco build",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false craco build",
     "test": "react-scripts test",
     "eject": "craco eject",
     "build-docs": "find ./src/app/main/documentation/material-ui-components \\( -name '*.ts' -o -name '*.tsx' \\) -type f -delete && babel-node --presets @babel/preset-env src/app/main/documentation/material-ui-components/build.js",
