@@ -13,11 +13,11 @@ const columns = [
   {
     field: 'actions',
     headerName: 'Actions',
-    flex: 1,
     headerAlign: 'center',
+    flex:1,
     align: 'center',
     renderCell: params => (
-      <>
+      <div >
         <IconButton onClick={() => {}}>
           <EditIcon />
         </IconButton>
@@ -25,7 +25,7 @@ const columns = [
         <IconButton onClick={() => {}}>
           <DeleteIcon />
         </IconButton>
-      </>
+      </div>
     )
   }
 ];
@@ -38,9 +38,9 @@ const DriversTable = () => {
     dispatch(getDriversData());
   }, [dispatch]);
   return (
-    <section className="h-full w-full p-10" style={{ height: '100vh' }}>
+    <section className="h-full w-full " style={{ height: '100vh' }}>
       {driversData && (
-        <div style={{ height: '80%' }}>
+        <div style={{ height: '80%' }} className={"p-10"}>
           <DataGrid rows={driversData} columns={columns} pageSize={20} pageSizeOptions={[5, 10]} />
         </div>
       )}
