@@ -133,8 +133,7 @@
     "redux-mock-store": "^1.5.4",
     "source-map-explorer": "2.5.2",
     "tailwindcss": "0.4.1",
-    "tailwindcss-dir": "4.0.0",
-    "@babel/plugin-proposal-private-property-in-object"
+    "tailwindcss-dir": "4.0.0"
   },
   "scripts": {
     "start": "craco --openssl-legacy-provider start",
