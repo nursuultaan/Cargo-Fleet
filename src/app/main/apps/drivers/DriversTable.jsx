@@ -38,11 +38,7 @@ const DriversTable = () => {
   }, [dispatch]);
   return (
     <section className="h-full w-full " style={{ height: '100vh' }}>
-      {driversData && (
-
-          <DataGrid rows={driversData} columns={columns} pageSize={20} pageSizeOptions={[5, 10]} />
-
-      )}
+      {driversData && <DataGrid rows={driversData} columns={columns} pageSize={20} pageSizeOptions={[5, 10]} />}
     </section>
   );
 };
