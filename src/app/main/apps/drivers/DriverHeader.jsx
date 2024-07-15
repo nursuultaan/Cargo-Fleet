@@ -1,6 +1,4 @@
 import React from 'react';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { motion } from 'framer-motion';
 import Typography from '@material-ui/core/Typography';
@@ -8,26 +6,18 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from '../../../store/fuse/settingsSlice';
+import { openNewVehicleDialog } from '../vehicles/store/vehiclesSlice';
 
-const DriverHeader = () => {
+const DriverHeader = ({ props }) => {
+  const dispatch = useDispatch();
+
   const mainTheme = useSelector(selectMainTheme);
-  console.log(mainTheme);
+
   return (
     <div className="flex flex-1 items-center justify-between p-4 sm:p-24">
       <div className="flex flex-shrink items-center sm:w-224">
-        <Hidden lgUp>
-          <IconButton
-            onClick={ev => {
-              //props.pageLayout.current.toggleLeftSidebar();
-            }}
-            aria-label="open left sidebar"
-          >
-            <Icon>menu</Icon>
-          </IconButton>
-        </Hidden>
-
         <div className="flex items-center">
           <Icon
             component={motion.span}
@@ -44,15 +34,20 @@ const DriverHeader = () => {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Drivers
+            Vehicles
           </Typography>
         </div>
       </div>
 
       <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
         <ThemeProvider theme={mainTheme}>
-          <Button variant="contained" color="success" className="flex flex-2 m-16">
-            Add New Driver
+          <Button
+            variant="contained"
+            color="success"
+            className="flex flex-2 m-16"
+            onClick={() => dispatch(openNewVehicleDialog())}
+          >
+            Add New Vehicle
           </Button>
           <Paper
             component={motion.div}
