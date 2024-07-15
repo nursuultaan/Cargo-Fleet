@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getDriversData } from './store/DriversSlice';
+import { getDriversData, selectDrivers } from './store/DriversSlice';
 
 const columns = [
   { field: 'email', headerName: 'Email', flex: 1, headerAlign: 'center', align: 'center' },
@@ -13,11 +13,10 @@ const columns = [
   {
     field: 'actions',
     headerName: 'Actions',
-    headerAlign: 'center',
     flex:1,
     align: 'center',
     renderCell: params => (
-      <div >
+      <div className={"flex justify-center"}>
         <IconButton onClick={() => {}}>
           <EditIcon />
         </IconButton>
@@ -32,7 +31,7 @@ const columns = [
 
 const DriversTable = () => {
   const dispatch = useDispatch();
-  const driversData = useSelector(state => state.driverAppReducer.data);
+  const driversData = useSelector(selectDrivers);
 
   useEffect(() => {
     dispatch(getDriversData());
@@ -40,7 +39,7 @@ const DriversTable = () => {
   return (
     <section className="h-full w-full " style={{ height: '100vh' }}>
       {driversData && (
-        <div style={{ height: '80%' }} className={"p-10"}>
+        <div style={{ height: '80%' }} className="p-10">
           <DataGrid rows={driversData} columns={columns} pageSize={20} pageSizeOptions={[5, 10]} />
         </div>
       )}

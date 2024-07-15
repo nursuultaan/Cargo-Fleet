@@ -30,4 +30,6 @@ const driversSlice = createSlice({
   }
 });
 
+export const selectDrivers = state => state.driverAppReducer.data;
+
 export default driversSlice.reducer;

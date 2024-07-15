@@ -1,11 +1,17 @@
 import React from 'react';
 import DriversTable from './DriversTable';
+import DriverHeader from './DriverHeader';
 
 const DriverApp = () => {
   return (
-    <div>
-      <DriversTable />
-    </div>
+    <section className={"py-20"}>
+      <DriverHeader/>
+      <div className={"p-20"}>
+
+        <DriversTable />
+
+      </div>
+    </section>
   );
 };
 
