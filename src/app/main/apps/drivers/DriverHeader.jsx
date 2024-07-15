@@ -12,7 +12,6 @@ import { openNewVehicleDialog } from '../vehicles/store/vehiclesSlice';
 
 const DriverHeader = ({ props }) => {
   const dispatch = useDispatch();
-
   const mainTheme = useSelector(selectMainTheme);
 
   return (

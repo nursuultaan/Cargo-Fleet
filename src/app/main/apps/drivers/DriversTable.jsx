@@ -16,7 +16,7 @@ const columns = [
     flex: 1,
     align: 'center',
     renderCell: params => (
-      <div className={'flex justify-center'}>
+      <div className="flex justify-center">
         <IconButton onClick={() => {}}>
           <EditIcon />
         </IconButton>
