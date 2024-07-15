@@ -34,7 +34,7 @@ const DriverHeader = ({ props }) => {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Vehicles
+            Drivers
           </Typography>
         </div>
       </div>
@@ -47,7 +47,7 @@ const DriverHeader = ({ props }) => {
             className="flex flex-2 m-16"
             onClick={() => dispatch(openNewVehicleDialog())}
           >
-            Add New Vehicle
+            Add New Driver
           </Button>
           <Paper
             component={motion.div}
