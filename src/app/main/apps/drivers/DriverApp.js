@@ -4,12 +4,10 @@ import DriverHeader from './DriverHeader';
 
 const DriverApp = () => {
   return (
-    <section className={"py-20"}>
-      <DriverHeader/>
-      <div className={"p-20"}>
-
+    <section className={'py-20'}>
+      <DriverHeader />
+      <div className={'p-20'}>
         <DriversTable />
-
       </div>
     </section>
   );

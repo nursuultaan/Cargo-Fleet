@@ -50,13 +50,8 @@ const DriverHeader = () => {
       </div>
 
       <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
-        <ThemeProvider theme={mainTheme} >
-          <Button
-            variant="contained"
-            color="success"
-            className="flex flex-2 m-16"
-
-          >
+        <ThemeProvider theme={mainTheme}>
+          <Button variant="contained" color="success" className="flex flex-2 m-16">
             Add New Driver
           </Button>
           <Paper
@@ -72,11 +67,9 @@ const DriverHeader = () => {
               className="flex flex-1 px-16"
               disableUnderline
               fullWidth
-
               inputProps={{
                 'aria-label': 'Search'
               }}
-
             />
           </Paper>
         </ThemeProvider>
