@@ -17,6 +17,8 @@ const columns = [
     headerName: 'Actions',
     flex: 1,
     align: 'center',
+    sortable: false,
+    filterable: false,
     renderCell: params => (
       <div className="flex items-center justify-center">
         <IconButton onClick={() => {}}>
