@@ -70,10 +70,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 Team members:
 Zarina
 Lavinia
-Nursultan
+Nursultan 
 Happy Coding!
 Amantur
 Happy Coding!
 Aian
 Carina Ihtiyorova
-Test rebase
