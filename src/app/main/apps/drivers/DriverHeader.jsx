@@ -38,11 +38,11 @@ const DriverHeader = ({ props }) => {
         </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
+      <div className="flex flex-1 items-center justify-center px-8 sm:px-12 `">
         <ThemeProvider theme={mainTheme}>
           <Button
             variant="contained"
-            color="success"
+            color="primary"
             className="flex flex-2 m-16"
             onClick={() => dispatch(openNewVehicleDialog())}
           >

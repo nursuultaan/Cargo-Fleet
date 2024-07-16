@@ -55,7 +55,7 @@ function VehiclesHeader(props) {
         <ThemeProvider theme={mainTheme}>
           <Button
             variant="contained"
-            color="success"
+            color="primary"
             className="flex flex-2 m-16"
             onClick={() => dispatch(openNewVehicleDialog())}
           >
