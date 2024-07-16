@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { Icon, IconButton } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { Link } from 'react-router-dom';
 import VehiclesTable from './VehiclesTable';
 import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog, toggleError } from './store/vehiclesSlice';
-import { Link } from 'react-router-dom';
 
 function VehiclesList(props) {
   const dispatch = useDispatch();

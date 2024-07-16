@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  margin: 0 20px;
+  margin: 0;
 }
 .container-info {
   display: flex;
@@ -10,7 +10,7 @@
   border: 1px black solid;
   padding: 10px;
   width: 100%;
-  margin: 50px 0;
+  margin: 0;
   height: 30vh;
 }
 .img-info {
@@ -26,4 +26,15 @@
 }
 .text-info {
   margin-bottom: 6px;
+}
+.header {
+  height: 14.5vh;
+  background-color: rgb(1, 100, 101);
+  display: flex;
+  align-items: center;
+}
+.header p {
+  font-size: 3em;
+  margin-left: 1em;
+  color: white;
 }

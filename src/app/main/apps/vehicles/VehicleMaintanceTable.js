@@ -41,15 +41,6 @@ export default function VehicleMaintanceTable({ issues }) {
                 {' '}
                 <Checkbox checked={issue.comleted} />
               </TableCell>
-              {/* <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          /> */}
             </TableRow>
           ))}
         </TableBody>
