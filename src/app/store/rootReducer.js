@@ -3,6 +3,7 @@ import auth from 'app/auth/store';
 import fuse from './fuse';
 import i18n from './i18nSlice';
 import dashboardReducer from '../main/apps/dashboard/store/widgetsSlice1-4';
+import driverAppReducer from '../main/apps/drivers/store/DriversSlice';
 
 const createReducer = asyncReducers => (state, action) => {
   const combinedReducer = combineReducers({
@@ -10,6 +11,7 @@ const createReducer = asyncReducers => (state, action) => {
     auth,
     fuse,
     i18n,
+    driverAppReducer,
     ...asyncReducers
   });
 

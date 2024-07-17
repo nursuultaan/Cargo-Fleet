@@ -1,35 +1,22 @@
-import Hidden from '@material-ui/core/Hidden';
+import React from 'react';
 import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
-import { ThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { motion } from 'framer-motion';
+import Typography from '@material-ui/core/Typography';
+import { ThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { openNewVehicleDialog, setVehiclesSearchText } from './store/vehiclesSlice';
+import { selectMainTheme } from '../../../store/fuse/settingsSlice';
+import { openNewVehicleDialog } from '../vehicles/store/vehiclesSlice';
 
-function VehiclesHeader(props) {
+const DriverHeader = ({ props }) => {
   const dispatch = useDispatch();
-  const searchText = useSelector(({ vehiclesApp }) => vehiclesApp.vehicles.searchText);
   const mainTheme = useSelector(selectMainTheme);
 
   return (
     <div className="flex flex-1 items-center justify-between p-4 sm:p-24">
       <div className="flex flex-shrink items-center sm:w-224">
-        <Hidden lgUp>
-          <IconButton
-            onClick={ev => {
-              props.pageLayout.current.toggleLeftSidebar();
-            }}
-            aria-label="open left sidebar"
-          >
-            <Icon>menu</Icon>
-          </IconButton>
-        </Hidden>
-
         <div className="flex items-center">
           <Icon
             component={motion.span}
@@ -46,12 +33,12 @@ function VehiclesHeader(props) {
             delay={300}
             className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
           >
-            Vehicles
+            Drivers
           </Typography>
         </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-center px-8 sm:px-12">
+      <div className="flex flex-1 items-center justify-center px-8 sm:px-12 `">
         <ThemeProvider theme={mainTheme}>
           <Button
             variant="contained"
@@ -59,7 +46,7 @@ function VehiclesHeader(props) {
             className="flex flex-2 m-16"
             onClick={() => dispatch(openNewVehicleDialog())}
           >
-            Add New Vehicle
+            Add New Driver
           </Button>
           <Paper
             component={motion.div}
@@ -74,17 +61,15 @@ function VehiclesHeader(props) {
               className="flex flex-1 px-16"
               disableUnderline
               fullWidth
-              value={searchText}
               inputProps={{
                 'aria-label': 'Search'
               }}
-              onChange={ev => dispatch(setVehiclesSearchText(ev))}
             />
           </Paper>
         </ThemeProvider>
       </div>
     </div>
   );
-}
+};
 
-export default VehiclesHeader;
+export default DriverHeader;
