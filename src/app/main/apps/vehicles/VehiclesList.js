@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Icon, IconButton } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { Link } from 'react-router-dom';
 import VehiclesTable from './VehiclesTable';
 import { openEditVehicleDialog, selectVehicles, openDeleteVehicleDialog, toggleError } from './store/vehiclesSlice';
 
@@ -77,7 +78,11 @@ function VehiclesList(props) {
                 // dispatch(moreInfo(row.original.id));
               }}
             >
-              <Icon>info</Icon>
+              <Link to={`/apps/vehicleInfo/${row.original.id}`}>
+                <IconButton>
+                  <Icon>info</Icon>
+                </IconButton>
+              </Link>
             </IconButton>
             <IconButton
               onClick={ev => {
