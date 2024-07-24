@@ -51,10 +51,10 @@ const DriversTable = () => {
       </div>
     );
   }
-  const handlePageSizeChange =(newPageSize)=>{
+  const handlePageSizeChange = newPageSize => {
     console.log(newPageSize);
     setPageSize(newPageSize.pageSize);
-  }
+  };
 
   return (
     <section className="w-full p-10">
