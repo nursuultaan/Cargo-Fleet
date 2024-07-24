@@ -6,7 +6,7 @@ const VEHICLES_API = 'https://cargofleet-api.fly.dev/team1/api/vehicles';
 const TOKEN = 'Zb84MzAROCrhmF6t';
 
 export const getVehicles = createAsyncThunk('vehicle-list-app/vehicles/getVehicles', async () => {
-  const response = await axios.get(VEHICLES_API, {
+  const response = await axios.get(`${VEHICLES_API}?limit=40`, {
     headers: {
       Authorization: TOKEN
     }

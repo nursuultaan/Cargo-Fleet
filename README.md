@@ -67,12 +67,29 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-Team members:
+### Backend
+
+https://github.com/Saidbek/cargofleet-api
+
+## End-to-end testing with Cypress
+
+You can read more [Cypress: Testing Framework for Javascript](https://www.cypress.io/)
+To learn Cypress, check out the [Comprehensive Cypress Test Automation Guide | Cypress Documentation](https://docs.cypress.io/guides/overview/why-cypress)
+
+### `yarn cypress open`
+
+To open cypress and run testing manually
+
+### `yarn cypress run`
+
+To run cypress testing automatically
+
+## Team members:
+
 Zarina
 Lavinia
-Nursultan 
-Happy Coding!
+Nursultan
+Bektur
 Amantur
-Happy Coding!
 Aian
 Carina Ihtiyorova
