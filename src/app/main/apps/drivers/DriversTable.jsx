@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +24,6 @@ const columns = [
         <IconButton onClick={() => {}}>
           <EditIcon />
         </IconButton>
-
         <IconButton onClick={() => {}}>
           <DeleteIcon />
         </IconButton>
@@ -35,12 +34,16 @@ const columns = [
     )
   }
 ];
+
 const DriversTable = () => {
   const dispatch = useDispatch();
   const driversData = useSelector(selectDrivers);
+  const [pageSize, setPageSize] = useState(10);
+
   useEffect(() => {
     dispatch(getDriversData());
   }, [dispatch]);
+
   if (driversData.length === 0) {
     return (
       <div className="flex items-center justify-center w-full h-full">
@@ -48,15 +51,21 @@ const DriversTable = () => {
       </div>
     );
   }
+  const handlePageSizeChange =(newPageSize)=>{
+    console.log(newPageSize);
+    setPageSize(newPageSize.pageSize);
+  }
 
   return (
-    <section className=" w-full p-10 ">
+    <section className="w-full p-10">
       {driversData && (
         <DataGrid
           rows={driversData}
           columns={columns}
-          pageSize={driversData.size}
-          pageSizeOptions={[5, 20]}
+          pageSize={pageSize}
+          rowsPerPageOptions={[5, 10, 20]}
+          onPageSizeChange={handlePageSizeChange}
+          pagination
           autoHeight
         />
       )}
