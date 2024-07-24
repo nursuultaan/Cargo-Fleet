@@ -15,18 +15,40 @@ export const getDriversData = createAsyncThunk('vehiclesApp/drivers/getDriversDa
   }
 });
 
+export const deleteDriver = createAsyncThunk('vehiclesApp/drivers/deleteDriver', async (driverId) => {
+  try {
+    await axios.delete(`https://cargofleet-api.fly.dev/team1/api/drivers/${driverId}`, {
+      headers: {
+        Authorization: 'Zb84MzAROCrhmF6t'
+      }
+    });
+    return driverId;
+  } catch (error) {
+    console.error('Error deleting driver:', error);
+    throw error;
+  }
+});
+
+
 const driversSlice = createSlice({
   name: 'vehiclesApp/drivers',
   initialState: { error: null, data: [] },
   reducers: {},
-  extraReducers: {
-    [getDriversData.fulfilled]: (state, action) => {
-      state.data = action.payload;
-      state.error = false;
-    },
-    [getDriversData.rejected]: (state, action) => {
-      state.error = true;
-    }
+  extraReducers: (builder) => {
+    builder
+      .addCase(getDriversData.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.error = false;
+      })
+      .addCase(getDriversData.rejected, (state, action) => {
+        state.error = true;
+      })
+      .addCase(deleteDriver.fulfilled, (state, action) => {
+        state.data = state.data.filter(driver => driver.id !== action.payload);
+      })
+      .addCase(deleteDriver.rejected, (state, action) => {
+        state.error = true;
+      })
   }
 });
 
