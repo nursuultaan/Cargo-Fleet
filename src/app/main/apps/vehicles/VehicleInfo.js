@@ -16,7 +16,7 @@ function VehicleInfo() {
 
   useEffect(() => {
     dispatch(getVehicle({ id }));
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <>
