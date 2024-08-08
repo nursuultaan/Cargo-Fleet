@@ -77,3 +77,9 @@ Happy Coding!
 Aian
 Carina Ihtiyorova
 Test rebase
+
+## Cypress Testing
+
+### To install Cypess
+
+yarn add cypress
