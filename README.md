@@ -76,4 +76,17 @@ Amantur
 Happy Coding!
 Aian
 Carina Ihtiyorova
-Test rebase
+
+## Cypress Testing
+
+### To install Cypess
+
+yarn add cypress
+
+### Run Cypress with CLI
+
+yarn cypress run
+
+### Run Cypress with UI
+
+yarn cypress open
