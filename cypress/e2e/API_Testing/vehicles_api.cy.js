@@ -37,10 +37,11 @@ describe('Vehicles HTTP Requests', () => {
 
   // GET vehicles with Query Parameters
   it('GET Vehicles by Query Parameters', () => {
-    const queryParam = '?sort=model&direction=asc';
+    const queryParam = { sort: 'model', direction: 'asc' };
     cy.request({
       method: 'GET',
-      url: `${VEHICLES_URL}${queryParam}`,
+      url: `${VEHICLES_URL}`,
+      qs: queryParam,
       headers: {
         Authorization: TOKEN
       }
