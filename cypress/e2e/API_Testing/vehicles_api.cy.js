@@ -10,8 +10,16 @@ describe('Vehicles HTTP Requests', () => {
         Authorization: TOKEN
       }
     })
-      .its('status')
-      .should('equal', 200);
+      // .its('status')
+      // .should('equal', 200);
+      .then(resp => {
+        expect(resp.status).to.eq(200);
+        expect(resp.body.page).to.eq(1);
+        expect(resp.body.limit).to.eq(20);
+        expect(resp.body.data).has.length(20);
+        expect(resp.body).have.property('total');
+        expect(resp.body.links).have.property('self');
+      });
   });
 
   // GET vehicle by ID
@@ -25,6 +33,22 @@ describe('Vehicles HTTP Requests', () => {
     })
       .its('status')
       .should('equal', 200);
+  });
+
+  // GET vehicles with Query Parameters
+  it('GET Vehicles by Query Parameters', () => {
+    const queryParam = '?sort=model&direction=asc';
+    cy.request({
+      method: 'GET',
+      url: `${VEHICLES_URL}${queryParam}`,
+      headers: {
+        Authorization: TOKEN
+      }
+    }).then(resp => {
+      expect(resp.status).equal(200);
+      expect(resp.body.data[0]).has.property('id', 22);
+      expect(resp.body.data[0]).has.property('model', 'Ashok Leyland Captain');
+    });
   });
 
   // testID will be saved when create vehicle, used when update and delete requests
@@ -59,7 +83,10 @@ describe('Vehicles HTTP Requests', () => {
         // .should('equal', 201)
         .then(response => {
           expect(response.status).to.eq(201);
+          // data validation from response
           expect(response.body.model).to.eq(createVehicleData.model);
+          // property name and data validation:
+          expect(response.body).has.property('model', createVehicleData.model);
           // testID saved and will be used for update and delete requests
           testId = response.body.id;
         });
